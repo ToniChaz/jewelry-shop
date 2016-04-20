@@ -45,6 +45,7 @@ $ cd jewelry-shop/server
 $ mvn clean install
 $ cd ../client
 $ npm install
+$ bower install
 ```
 ### Run to localhost
 ```sh
