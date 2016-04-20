@@ -41,22 +41,34 @@ You need Maven, NodeJS and npm installed globally, and then:
 
 ```sh
 $ git clone https://github.com/ToniChaz/jewelry-shop jewelry-shop
-$ cd jewelry-shop
+$ cd jewelry-shop/server
 $ mvn clean install
+$ cd ../client
 $ npm install
 ```
 ### Run to localhost
-*Cooming soon*
+```sh
+$ cd jewelry-shop/server
+$ mvn jetty:run
+$ cd ../client
+$ grunt serve
+```
 
 ### Build
-*Cooming soon*
+```sh
+$ cd jewelry-shop/server
+$ mvn clean package
+$ cd ../client
+$ grunt build
+$ cp dist/ ../server/src/main/webapp/
+```
 
 ### Todos
 
  - Write Tests
  - Add Code Comments
 
-License
+[License]
 ----
 
 MIT
@@ -82,6 +94,7 @@ MIT
 [jUnit]: <http://junit.org/>
 [LOG4J]: <http://logging.apache.org/log4j/>
 [public repository]: <https://github.com/ToniChaz/jewelry-shop>
+[License]: <LICENSE.txt>
 
 
 
