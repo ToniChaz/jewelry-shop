@@ -56,11 +56,11 @@ $ grunt serve
 
 ### Build
 ```sh
-$ cd jewelry-shop/server
-$ mvn clean package
-$ cd ../client
+$ cd jewelry-shop/client/
 $ grunt build
 $ cp dist/ ../server/src/main/webapp/
+$ cd ../server
+$ mvn clean package
 ```
 
 ### Todos
