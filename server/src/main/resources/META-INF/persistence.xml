@@ -3,6 +3,8 @@
 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
+
+    <!-- Example by https://dzone.com/articles/jpa-tutorial-setting-jpa-java -->
     <persistence-unit name="jewelry_shop" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
