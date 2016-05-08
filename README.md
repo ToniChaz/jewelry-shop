@@ -2,6 +2,8 @@
 ##### Jewerly online shop, fullstack application for final project of JavaEE master in [CICE], JESH it is developed with JavaEE 8 the part of server (API) and HTML5, CSS3 and JavaScript the part of client. Uses a number of open source libraries and frameworks to work properly.
 
 # API
+* Login
+* Register
 * User
 * Administrator
 * Product
