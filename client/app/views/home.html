@@ -1,0 +1,30 @@
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <ul rn-carousel rn-carousel-controls rn-carousel-auto-slide class="carousel">
+      <li ng-repeat="image in images">
+        <img class="layer" src="{{image}}"/>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Example row of columns -->
+<div class="row home-boxes">
+  <div class="col-md-4">
+    <h2>News</h2>
+    <img class="layer" src="{{imgNews}}"/>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Offers</h2>
+    <img class="layer" src="{{imgOffers}}"/>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+  <div class="col-md-4">
+    <h2>Top sales</h2>
+    <img class="layer" src="{{imgTopSales}}"/>
+    <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  </div>
+</div>
+

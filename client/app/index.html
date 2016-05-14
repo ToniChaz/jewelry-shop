@@ -1,113 +1,85 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.) styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css" />
+        <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/main.css">
+        <!-- endbuild -->
+    </head>
 
+    <body ng-app="jewelryShopApp">
+        <!--[if lte IE 8]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <ng-include src="'views/header.html'" ng-if="hideHeaderFooter"></ng-include>
 
-  <body ng-app="jewelryShopApp">
-    <!--[if lte IE 8]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <header>
-      <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#/">JewelryShop</a>
-          </div>
-          <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Shop</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/contact">Contact</a></li>
-            </ul>
-            <form class="navbar-form navbar-right">
-              <div class="form-group">
-                <input type="text" placeholder="Email" class="form-control">
-              </div>
-              <div class="form-group">
-                <input type="password" placeholder="Password" class="form-control">
-              </div>
-              <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-          </div><!--/.navbar-collapse -->
+            <div ng-view=""></div>
         </div>
-      </nav>
-    </header>
 
-    <div class="container">
-      <div ng-view=""></div>
-    </div>
+        <ng-include src="'views/footer.html'" ng-if="hideHeaderFooter"></ng-include>
 
-    <footer>
-      <p class="text-center"><span class="glyphicon glyphicon-copyright-mark"></span> Toni Chaz 2016 | Project for CICE Java E.E</p>
-      <p class="text-center"><span class="glyphicon glyphicon-phone-alt"></span> 0034 - XXX XXX XXX | <span class="glyphicon glyphicon-envelope"></span> mail@mail.com</p>
-    </footer>
-  </div> <!-- /container -->
+        <!--&lt;!&ndash; Google Analytics: change UA-XXXXX-X to be your site's ID &ndash;&gt;
+         <script>
+           !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+           (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+           r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+           }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-    <!--&lt;!&ndash; Google Analytics: change UA-XXXXX-X to be your site's ID &ndash;&gt;
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+           ga('create', 'UA-XXXXX-X');
+           ga('send', 'pageview');
+        </script>-->
 
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>-->
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-route/angular-route.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/shop.js"></script>
-    <script src="scripts/controllers/about.js"></script>
-    <script src="scripts/controllers/admin/dashboard.js"></script>
-    <script src="scripts/controllers/admin/user.js"></script>
-    <script src="scripts/controllers/admin/product.js"></script>
-    <script src="scripts/controllers/admin/administrator.js"></script>
-    <script src="scripts/controllers/admin/login.js"></script>
-    <script src="scripts/controllers/login.js"></script>
-    <script src="scripts/controllers/register.js"></script>
-    <script src="scripts/controllers/contact.js"></script>
-    <script src="scripts/controllers/my-section.js"></script>
-    <script src="scripts/controllers/my-cart.js"></script>
-    <script src="scripts/services/login.js"></script>
-    <script src="scripts/services/logout.js"></script>
-    <script src="scripts/services/user.js"></script>
-    <script src="scripts/services/administrator.js"></script>
-    <script src="scripts/services/product.js"></script>
-    <script src="scripts/services/cart.js"></script>
-    <!-- endbuild -->
-</body>
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/config.js"></script>
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/admin/dashboard.js"></script>
+        <script src="scripts/controllers/admin/user.js"></script>
+        <script src="scripts/controllers/admin/product.js"></script>
+        <script src="scripts/controllers/admin/administrator.js"></script>
+        <script src="scripts/controllers/admin/login.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/register.js"></script>
+        <script src="scripts/controllers/contact.js"></script>
+        <script src="scripts/controllers/my-section.js"></script>
+        <script src="scripts/controllers/my-cart.js"></script>
+        <script src="scripts/services/login.js"></script>
+        <script src="scripts/services/logout.js"></script>
+        <script src="scripts/services/user.js"></script>
+        <script src="scripts/services/administrator.js"></script>
+        <script src="scripts/services/product.js"></script>
+        <script src="scripts/services/cart.js"></script>
+        <script src="scripts/controllers/header.js"></script>
+        <script src="scripts/controllers/footer.js"></script>
+        <script src="scripts/controllers/shop.js"></script>
+        <script src="scripts/services/interceptor.js"></script>
+        <!-- endbuild -->
+    </body>
 </html>

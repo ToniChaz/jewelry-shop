@@ -1,23 +1,23 @@
 'use strict';
 
-describe('Controller: ShopCtrl', function () {
+describe('Controller: HomeCtrl', function () {
 
   // load the controller's module
   beforeEach(module('jewelryShopApp'));
 
-  var ShopCtrl,
+  var HomeCtrl,
     scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    ShopCtrl = $controller('ShopCtrl', {
+    HomeCtrl = $controller('HomeCtrl', {
       $scope: scope
       // place here mocked dependencies
     });
   }));
 
   it('should attach a list of awesomeThings to the scope', function () {
-    expect(ShopCtrl.awesomeThings.length).toBe(3);
+    expect(HomeCtrl.awesomeThings.length).toBe(3);
   });
 });

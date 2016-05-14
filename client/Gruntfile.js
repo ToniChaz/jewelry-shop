@@ -220,7 +220,7 @@ module.exports = function (grunt) {
             }
           }
       }
-    }, 
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -423,9 +423,37 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    // Generate api url depending envinroment
+    ngconstant: {
+      options: {
+            dest: '.tmp/scripts/config.js',
+            wrap: '\'use strict\';\n\n {%= __ngModule %}',
+            name: 'config'
+        },
+      // Environment targets
+      development: {
+        constants: {
+          ENVIRONMENT: {
+            name: 'development',
+            apiEndpoint: 'http://private-7c384-jesh2.apiary-mock.com'
+          }
+        }
+      },
+      production: {
+        constants: {
+          ENVIRONMENT: {
+            name: 'production',
+            apiEndpoint: 'http://localhost:5000'
+          }
+        }
+      }
     }
+
   });
 
+  grunt.loadNpmTasks('grunt-ng-constant');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -434,6 +462,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'ngconstant:development',
       'wiredep',
       'concurrent:server',
       'postcss:server',
@@ -449,6 +478,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('test', [
     'clean:server',
+    'ngconstant:development',
     'wiredep',
     'concurrent:test',
     'postcss',
@@ -458,10 +488,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'ngconstant:production',
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
     'postcss',
+    'ngconstant:production',
     'ngtemplates',
     'concat',
     'ngAnnotate',

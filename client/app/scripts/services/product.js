@@ -8,16 +8,28 @@
  * Factory in the jewelryShopApp.
  */
 angular.module('jewelryShopApp')
-  .factory('product', function () {
-    // Service logic
-    // ...
+  .factory('Product', function (Interceptor) {
 
-    var meaningOfLife = 42;
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
+    var Product = {};
 
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
+    Product.get = function () {
+
+      var request = {
+        method: 'GET',
+        url: '/product'
+      };
+      return Interceptor.call(request);
     };
+
+    /*-------------------------------------
+     | Return                             |
+     -------------------------------------*/
+    return Product;
+
   });

@@ -44,6 +44,7 @@ footer {
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
+  position: relative;
 }
 .jumbotron .btn {
   font-size: 21px;
@@ -56,6 +57,26 @@ footer {
 }
 .marketing p + h4 {
   margin-top: 28px;
+}
+
+/* shop section */
+ul.carousel {
+  width: 920px;
+  height: 350px;
+  margin: 0 auto;
+}
+.rn-carousel-controls {
+  position: absolute;
+  width: 1166px;
+  top: 155px;
+  left: -15px;
+  color: #4cae4c;
+}
+.rn-carousel-control {
+  font-size: 9rem;
+}
+.home-boxes .col-md-4 p {
+  margin: 15px 0;
 }
 
 /* Responsive: Portrait tablets and up */

@@ -2,21 +2,20 @@
 
 /**
  * @ngdoc function
- * @name jewelryShopApp.controller:ShopCtrl
+ * @name jewelryShopApp.controller:HeaderCtrl
  * @description
- * # ShopCtrl
+ * # HeaderCtrl
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('ShopCtrl', function ($scope, Product) {
+  .controller('HeaderCtrl', function ($scope, $location) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
 
-    Product.get().then(function (response) {
-      $scope.products = response;
-    });
-
+    $scope.isActive = function (viewLocation) {
+      return viewLocation === $location.path();
+    };
   });
