@@ -9,9 +9,7 @@
  */
 angular.module('jewelryShopApp')
   .controller('ContactCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
   });

@@ -1,15 +1,26 @@
-<div class="col-md-3"></div>
-<div class="col-md-6">
-    <form>
-        <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" class="form-control" placeholder="Email">
+<div ng-controller="LoginCtrl" class="login">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <form novalidate>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" ng-model="loginData.email" placeholder="Email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" ng-model="loginData.password" placeholder="Password" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input ng-model="loginData.session" type="checkbox"> Remember me
+          </label>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" placeholder="Password">
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">Login</button>
-    </form> 
+      </div>
+      <button type="submit" ng-click="login(loginData)" class="btn btn-primary btn-block">Login</button>
+      <a href="#/" class="btn btn-default btn-block">Back to home</a>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
 </div>
-<div class="col-md-3"></div>
+

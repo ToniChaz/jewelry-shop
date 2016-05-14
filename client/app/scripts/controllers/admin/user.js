@@ -8,10 +8,21 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('AdminUserCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('AdminUserCtrl', function ($rootScope, $location) {
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
+    function isLoggedAndAdministrator(){
+      if(!$rootScope.isLogged && !$rootScope.isAdministrator){
+        $location.path('/login');
+      }
+    }
+    /*-------------------------------------
+     | Init                               |
+     -------------------------------------*/
+    isLoggedAndAdministrator();
+
   });

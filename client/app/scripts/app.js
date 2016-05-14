@@ -16,6 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    'ngStorage',
+    'ui.bootstrap',
     'angular-carousel',
     'config'
   ])
@@ -36,10 +38,6 @@ angular
       .when('/register', {
         templateUrl: 'views/register.html',
         controller: 'RegisterCtrl'
-      })
-      .when('/about', {
-        templateUrl: 'views/about.html',
-        controller: 'AboutCtrl'
       })
       .when('/my-cart', {
         templateUrl: 'views/my-cart.html',
@@ -74,17 +72,30 @@ angular
         controller: 'AdminUserCtrl'
       })
       .otherwise({
-        redirectTo: function(){
+        redirectTo: function () {
           window.location.replace('/404.html');
         }
       });
   })
-  .run(function($rootScope) {
+  .run(function ($rootScope, $sessionStorage) {
 
-        // Global variables
-        $rootScope.hideHeaderFooter = false;
+    // Global variables
+    $rootScope.hideHeaderFooter = false;
 
-        $rootScope.$on("$locationChangeStart", function(event, next) {
-            $rootScope.hideHeaderFooter = next.split('/').pop() !== 'login';
-        });
+    $rootScope.$on("$locationChangeStart", function (event, next) {
+      var currentPath = next.split('/').pop();
+      $rootScope.hideHeaderFooter = currentPath !== 'login' && currentPath !== 'register';
     });
+
+    $rootScope.isLogged = false;
+    $rootScope.isAdministrator = false;
+    $rootScope.accessToken = '';
+    $rootScope.loaded = true;
+
+    if($sessionStorage.session !== undefined){
+      $rootScope.isLogged = $sessionStorage.session.isLogged;
+      $rootScope.isAdministrator = $sessionStorage.session.isAdministrator;
+      $rootScope.accessToken = $sessionStorage.session.accessToken;
+    }
+
+  });

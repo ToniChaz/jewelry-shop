@@ -8,14 +8,24 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('HeaderCtrl', function ($scope, $location) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
+  .controller('HeaderCtrl', function ($scope, $rootScope, $location, Access) {
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
     $scope.isActive = function (viewLocation) {
       return viewLocation === $location.path();
+    };
+
+    $scope.login = function(loginData){
+      console.log(loginData);
+      if(!loginData || !loginData.email || !loginData.password){
+        $rootScope.$broadcast('alert', 'danger', 'E-mail or password they may not be empty');
+        return false;
+      }
+      Access.login(loginData);
+    };
+
+    $scope.logout = function(){
+      Access.logout();
     };
   });

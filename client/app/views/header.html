@@ -1,34 +1,49 @@
 <header ng-controller="HeaderCtrl">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#/">JewelryShop</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
-                    <li ng-class="{ active: isActive('/shop')}"><a href="#/shop">Shop</a></li>
-                    <li ng-class="{ active: isActive('/about')}"><a ng-href="#/about">About</a></li>
-                    <li ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
-                    <li ng-class="{ active: isActive('/my-section')}"><a ng-href="#/my-section">My section</a></li>
-                    <li ng-class="{ active: isActive('/my-cart')}"><a ng-href="#/my-cart">My cart</a></li>
-                </ul>
-                <form class="navbar-form navbar-right">
-                    <div class="form-group">
-                        <input type="text" placeholder="Email" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <input type="password" placeholder="Password" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-success">Sign in</button>
-                </form>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#/">JewelryShop</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+          <li ng-class="{ active: isActive('/shop')}"><a href="#/shop">Shop</a></li>
+          <li ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
+          <li ng-if="isLogged" ng-class="{ active: isActive('/my-section')}"><a ng-href="#/my-section">My section</a></li>
+          <li ng-if="isLogged" ng-class="{ active: isActive('/my-cart')}"><a ng-href="#/my-cart">My cart</a></li>
+          <li ng-if="isAdministrator" class="dropdown">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Admin <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li ng-class="{ active: isActive('/admin/dashboard')}"><a href="#/admin/dashboard">Dashboard</a></li>
+              <li ng-class="{ active: isActive('/admin/administrator')}"><a href="#/admin/administrator">Administrator</a></li>
+              <li ng-class="{ active: isActive('/admin/product')}"><a href="#/admin/product">Product</a></li>
+              <li ng-class="{ active: isActive('/admin/user')}"><a href="#/admin/user">User</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form novalidate ng-if="!isLogged" class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" ng-model="loginData.email" placeholder="Email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <input type="password" ng-model="loginData.password" placeholder="Password" class="form-control" required>
+          </div>
+          <div class="form-group checkbox">
+            <input ng-model="loginData.session" type="checkbox"> Remember me
+          </div>
+          <button type="submit" ng-click="login(loginData)" class="btn btn-success">Sign in</button>
+          <a href="#/register" class="btn btn-success">Register</a>
+        </form>
+        <form novalidate ng-if="isLogged" class="navbar-form navbar-right">
+          <button type="submit" ng-click="logout()" class="btn btn-success">Logout</button>
+        </form>
+      </div><!--/.navbar-collapse -->
+    </div>
+  </nav>
 </header>

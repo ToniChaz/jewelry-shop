@@ -8,7 +8,7 @@
  * Factory in the jewelryShopApp.
  */
 angular.module('jewelryShopApp')
-  .factory('Interceptor', function ($q, $http, $log, ENVIRONMENT) {
+  .factory('Interceptor', function ($q, $http, $log, $rootScope, ENVIRONMENT) {
 
     /*-------------------------------------
      | Variables                          |
@@ -25,6 +25,8 @@ angular.module('jewelryShopApp')
 
     Interceptor.call = function (request) {
 
+      $rootScope.loaded = false;
+
       var deferred = $q.defer();
 
       request.url = urlBase + request.url;
@@ -32,10 +34,11 @@ angular.module('jewelryShopApp')
       $http(request)
         .then(function successCallback(response) {
           deferred.resolve(response.data);
+          $rootScope.loaded = true;
         }, function errorCallback(response) {
-
           errorInterceptor(response);
           deferred.reject(response);
+          $rootScope.loaded = true;
         });
 
       return deferred.promise;

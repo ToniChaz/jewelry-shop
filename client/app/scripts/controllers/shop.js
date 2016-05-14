@@ -9,12 +9,13 @@
  */
 angular.module('jewelryShopApp')
   .controller('ShopCtrl', function ($scope, Product) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
 
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
     Product.get().then(function (response) {
       $scope.products = response;
     });

@@ -8,10 +8,21 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('MySectionCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MySectionCtrl', function ($rootScope, $location) {
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
+    function isLogged(){
+      if(!$rootScope.isLogged){
+        $location.path('/login');
+      }
+    }
+    /*-------------------------------------
+     | Init                               |
+     -------------------------------------*/
+    isLogged();
+
   });

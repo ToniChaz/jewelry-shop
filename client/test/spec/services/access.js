@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: login', function () {
+describe('Service: Access', function () {
 
   // load the service's module
   beforeEach(module('jewelryShopApp'));
 
   // instantiate service
-  var login;
-  beforeEach(inject(function (_login_) {
-    login = _login_;
+  var Access;
+  beforeEach(inject(function (_access_) {
+    Access = _access_;
   }));
 
   it('should do something', function () {
-    expect(!!login).toBe(true);
+    expect(!!Access).toBe(true);
   });
 
 });
