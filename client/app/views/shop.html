@@ -1,9 +1,64 @@
-<p>This is the shop view.</p>
-<div ng-repeat="product in products">
-  <p>id: {{product.id}}</p>
-  <p>name: {{product.name}}</p>
-  <p>price: {{product.price}}</p>
-  <p>quantity: {{product.quantity}}</p>
-  <p>category: {{product.category}}</p>
-  <hr>
+<div ng-controller="ShopCtrl" class="shop">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <div class="input-group">
+          <live-search id="search1" type="text"
+                       liveSearchWaitTimeout="500"
+                       liveSearchMaxResultSize="10"
+                       live-search-callback="searchCallback"
+                       live-search-item-template="<b>{{result.name}}</b>"
+                       live-search-select="name"
+                       live-search-selected="selected"
+                       ng-model="search" class="form-control"></live-search>
+          <div class="input-group-addon">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <p ng-if="isLogged">You have <b>{{user.cart.products.length}}</b> products in your <a href="#/my-cart">cart</a></p>
+    </div>
+  </div>
+  <div ng-if="!singleProduct" ng-repeat="product in products">
+    <div class="row">
+      <div class="col-md-3">
+        <img src="http://lorempixel.com/200/200/nature/1" class="img-rounded">
+      </div>
+      <div class="col-md-6">
+        <h1>{{product.name}}</h1>
+        <h2>{{product.price}}€</h2>
+        <h4>Stock: {{product.quantity}}</h4>
+        <h4>Category: {{product.category}}</h4>
+      </div>
+      <div class="col-md-3">
+        <button ng-if="isLogged" type="button" class="btn btn-lg btn-success btn-block">Buy</button>
+        <p class="text-center" ng-if="!isLogged">To buy you need to be <a href="#/register">registered</a> or <a href="#/login">logged</a></p>
+      </div>
+      <hr>
+    </div>
+    <hr>
+  </div>
+  <div ng-if="singleProduct">
+    <div class="row">
+      <div class="col-md-3">
+        <img src="http://lorempixel.com/200/200/nature/1" class="img-rounded">
+      </div>
+      <div class="col-md-6">
+        <h1>{{singleProduct.name}}</h1>
+        <h2>{{singleProduct.price}}€</h2>
+        <h4>Quantity: {{singleProduct.quantity}}</h4>
+        <h4>Category: {{singleProduct.category}}</h4>
+      </div>
+      <div class="col-md-3">
+        <button type="button" ng-click="back()" class="btn btn-lg btn-primary btn-block">Back</button>
+        <button ng-if="isLogged" type="button" class="btn btn-lg btn-success btn-block">Buy</button>
+        <p class="text-center" ng-if="!isLogged">To buy you need to be <a href="#/register">registered</a> or <a href="#/login">logged</a></p>
+      </div>
+      <hr>
+    </div>
+    <hr>
+  </div>
 </div>

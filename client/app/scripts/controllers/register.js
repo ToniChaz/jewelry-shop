@@ -23,10 +23,13 @@ angular.module('jewelryShopApp')
         $rootScope.$broadcast('alert', 'danger', 'All data is required to register as client or your e-mail is invalid.');
         return false;
       }
+
+      registerData.name = registerData.firstName;
+
       User.add(registerData).then(function(response){
         Access.login(response).then(function(){
           $rootScope.$broadcast('alert', 'success', 'Welcome to the Jewelry Shop! Your registration process has been completed successfully.');
-          $location.path('/')
+          $location.path('/');
         });
       });
     };

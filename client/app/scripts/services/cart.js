@@ -8,16 +8,57 @@
  * Factory in the jewelryShopApp.
  */
 angular.module('jewelryShopApp')
-  .factory('cart', function () {
-    // Service logic
-    // ...
+  .factory('Cart', function (Interceptor) {
 
-    var meaningOfLife = 42;
+    /*-------------------------------------
+     | Variables                          |
+     -------------------------------------*/
+    var Cart = {};
 
-    // Public API here
-    return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+    /*-------------------------------------
+     | Functions                          |
+     -------------------------------------*/
+    Cart.get = function (cartId) {
+
+      var request = {
+        method: 'GET',
+        url: '/cart/' + cartId
+      };
+      return Interceptor.call(request);
     };
+
+    Cart.create = function (userId, cartData) {
+
+      var request = {
+        method: 'POST',
+        url: '/cart/' + userId,
+        data: cartData
+      };
+      return Interceptor.call(request);
+    };
+
+    Cart.update = function (userId, cartData) {
+
+      var request = {
+        method: 'PUT',
+        url: '/cart/' + userId,
+        data: cartData
+      };
+      return Interceptor.call(request);
+    };
+
+    Cart.delete = function (userId) {
+
+      var request = {
+        method: 'DELETE',
+        url: '/cart/' + userId
+      };
+      return Interceptor.call(request);
+    };
+
+    /*-------------------------------------
+     | Return                             |
+     -------------------------------------*/
+    return Cart;
+
   });

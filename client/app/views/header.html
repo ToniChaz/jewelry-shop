@@ -35,14 +35,21 @@
             <input type="password" ng-model="loginData.password" placeholder="Password" class="form-control" required>
           </div>
           <div class="form-group checkbox">
-            <input ng-model="loginData.session" type="checkbox"> Remember me
+            <label>
+              <input ng-model="loginData.session" type="checkbox"> Remember me
+            </label>
           </div>
           <button type="submit" ng-click="login(loginData)" class="btn btn-success">Sign in</button>
           <a href="#/register" class="btn btn-success">Register</a>
         </form>
-        <form novalidate ng-if="isLogged" class="navbar-form navbar-right">
-          <button type="submit" ng-click="logout()" class="btn btn-success">Logout</button>
-        </form>
+        <div ng-if="isLogged">
+          <form novalidate class="navbar-form navbar-right">
+            <div class="form-group user-name">
+              <p>Welcome {{user.name}}</p>
+            </div>
+            <button type="submit" ng-click="logout()" class="btn btn-success">Logout</button>
+          </form>
+        </div>
       </div><!--/.navbar-collapse -->
     </div>
   </nav>

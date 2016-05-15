@@ -24,7 +24,7 @@ angular.module('jewelryShopApp')
         return false;
       }
       Access.login(loginData).then(function(){
-        $location.path('/')
+        $location.path('/');
       });
     };
 

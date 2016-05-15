@@ -1,24 +1,42 @@
 <div ng-controller="ContactCtrl" class="contact">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-    <form novalidate>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="email" placeholder="Email" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" ng-model="password" placeholder="Password" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input ng-model="session" type="checkbox"> Remember me
-          </label>
+  <div class="row">
+    <div class="col-md-6">
+      <form novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" ng-model="contactData.firstName" placeholder="Name" class="form-control" required>
         </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" ng-model="contactData.email" placeholder="Email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" ng-model="contactData.subject" placeholder="Subject" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Subject</label>
+          <textarea class="form-control" ng-model="contactData.message" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input ng-model="contactData.terms" type="checkbox" required> Accept terms and conditions
+            </label>
+          </div>
+        </div>
+        <button type="submit" ng-disabled="!contactData.terms" ng-click="register(contactData)" class="btn btn-success btn-block">Send</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <img class="col-md-12 img-thumbnail" src="../images/map.png"/>
+        <p class="col-md-12 map-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+          It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+        </p>
       </div>
-      <button type="submit" ng-click="login(email, password, session)" class="btn btn-primary btn-block">Login</button>
-    </form>
+    </div>
   </div>
-  <div class="col-md-3"></div>
 </div>

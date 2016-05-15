@@ -12,12 +12,26 @@ angular.module('jewelryShopApp')
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
+    $scope.search = '';
 
     /*-------------------------------------
      | Functions                          |
      -------------------------------------*/
-    Product.get().then(function (response) {
+    Product.getAll().then(function (response) {
       $scope.products = response;
     });
+
+    $scope.searchCallback = function (params) {
+      return Product.get(params.query);
+    };
+
+    $scope.selected = function (product) {
+      $scope.singleProduct = product;
+    };
+
+    $scope.back = function(){
+      $scope.search = '';
+      delete $scope.singleProduct;
+    };
 
   });

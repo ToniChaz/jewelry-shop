@@ -27,11 +27,11 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
-    User.get = function (query) {
+    User.get = function (userId) {
 
       var request = {
         method: 'GET',
-        url: '/user' + query
+        url: '/user/' + userId
       };
       return Interceptor.call(request);
     };
@@ -41,31 +41,17 @@ angular.module('jewelryShopApp')
       var request = {
         method: 'POST',
         url: '/user',
-        data: {
-          "name": registerData.firstName,
-          "surname": registerData.surname,
-          "email": registerData.email,
-          "password": registerData.password,
-          "bankAccount": registerData.bankAccount,
-          "address": registerData.address
-        }
+        data: registerData
       };
       return Interceptor.call(request);
     };
 
-    User.update = function (userData, userId) {
+    User.update = function (userId, userData) {
 
       var request = {
         method: 'PUT',
-        url: '/user' + userId,
-        data: {
-          "name": userData.firstName,
-          "surname": userData.surname,
-          "email": userData.email,
-          "password": userData.password,
-          "bankAccount": userData.bankAccount,
-          "address": userData.address
-        }
+        url: '/user/' + userId,
+        data: userData
       };
       return Interceptor.call(request);
     };
@@ -74,7 +60,7 @@ angular.module('jewelryShopApp')
 
       var request = {
         method: 'DELETE',
-        url: '/user' + userId
+        url: '/user/' + userId
       };
       return Interceptor.call(request);
     };

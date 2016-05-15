@@ -18,11 +18,21 @@ angular.module('jewelryShopApp')
     /*-------------------------------------
      | Functions                          |
      -------------------------------------*/
-    Product.get = function () {
+    Product.getAll = function () {
 
       var request = {
         method: 'GET',
         url: '/product'
+      };
+      return Interceptor.call(request);
+    };
+
+    Product.get = function (query) {
+
+      var request = {
+        method: 'GET',
+        url: '/product?query=' + query,
+        noLoader: true
       };
       return Interceptor.call(request);
     };

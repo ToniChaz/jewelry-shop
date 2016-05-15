@@ -1,1 +1,27 @@
-<p>This is the my-cart view.</p>
+<div ng-controller="MyCartCtrl" class="my-cart">
+  <div ng-if="user.cart.products.length === 0"><h1>You dont have products in your cart.</h1></div>
+  <div ng-if="user.cart.products.length > 0">
+    <div ng-repeat="product in user.cart.products">
+      <div class="row">
+        <div class="col-md-3">
+          <img src="http://lorempixel.com/200/200/nature/1" class="img-rounded">
+        </div>
+        <div class="col-md-6">
+          <h1>{{product.productName}}</h1>
+          <h2>{{product.price}}€</h2>
+        </div>
+        <div class="col-md-3">
+          <button type="button" ng-click="delete(product)" class="btn btn-lg btn-danger btn-block">Delete</button>
+        </div>
+        <hr>
+      </div>
+      <hr>
+    </div>
+    <div class="col-md-9">
+    </div>
+    <div class="col-md-3 total text-right">
+      <h1>Total: {{user.cart.total}}€</h1>
+      <button type="button" ng-click="pay()" class="btn btn-lg btn-success btn-block">Pay & Send</button>
+    </div>
+  </div>
+</div>

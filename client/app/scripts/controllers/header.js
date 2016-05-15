@@ -17,7 +17,6 @@ angular.module('jewelryShopApp')
     };
 
     $scope.login = function(loginData){
-      console.log(loginData);
       if(!loginData || !loginData.email || !loginData.password){
         $rootScope.$broadcast('alert', 'danger', 'E-mail or password they may not be empty');
         return false;

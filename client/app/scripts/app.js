@@ -18,7 +18,6 @@ angular
     'ngTouch',
     'ngStorage',
     'ui.bootstrap',
-    'angular-carousel',
     'config'
   ])
   .config(function ($routeProvider) {
@@ -40,6 +39,10 @@ angular
         controller: 'RegisterCtrl'
       })
       .when('/my-cart', {
+        templateUrl: 'views/my-cart.html',
+        controller: 'MyCartCtrl'
+      })
+      .when('/my-cart/:cartId', {
         templateUrl: 'views/my-cart.html',
         controller: 'MyCartCtrl'
       })
@@ -81,21 +84,71 @@ angular
 
     // Global variables
     $rootScope.hideHeaderFooter = false;
-
-    $rootScope.$on("$locationChangeStart", function (event, next) {
-      var currentPath = next.split('/').pop();
-      $rootScope.hideHeaderFooter = currentPath !== 'login' && currentPath !== 'register';
-    });
-
-    $rootScope.isLogged = false;
-    $rootScope.isAdministrator = false;
-    $rootScope.accessToken = '';
     $rootScope.loaded = true;
 
-    if($sessionStorage.session !== undefined){
+    $rootScope.$on('$locationChangeStart', function (event, next) {
+      var currentPath = next.split('/').pop();
+      $rootScope.hideHeaderFooter = currentPath !== 'login' && currentPath !== 'register';
+
+    });
+
+    function initData(){
+      $rootScope.user = {};
+      $rootScope.userId = '';
+      $rootScope.accessToken = '';
+      $rootScope.isLogged = false;
+      $rootScope.isAdministrator = false;
+    }
+
+    function setData(data){
+      $rootScope.userId = data.userId;
+      $rootScope.accessToken = data.accessToken;
+      $rootScope.isLogged = data.isLogged;
+      $rootScope.isAdministrator = data.isAdministrator;
+    }
+
+    function setSession(data){
+      $sessionStorage.session = {
+        isLogged: data.isLogged,
+        isAdministrator: data.isAdministrator,
+        accessToken: data.accessToken,
+        userId: data.userId
+      };
+    }
+
+    function recoverSession(){
+      $rootScope.userId = $sessionStorage.session.userId;
       $rootScope.isLogged = $sessionStorage.session.isLogged;
       $rootScope.isAdministrator = $sessionStorage.session.isAdministrator;
       $rootScope.accessToken = $sessionStorage.session.accessToken;
+      $rootScope.user = $sessionStorage.session.user;
+    }
+
+    function cleanSession(){
+      delete $sessionStorage.session;
+    }
+
+    function setUserToSession(userData){
+      $sessionStorage.session.user = userData;
+    }
+
+    function setUserData(userData){
+      $rootScope.user = userData;
+    }
+
+    // Return functions
+    $rootScope.initData = initData;
+    $rootScope.setData = setData;
+    $rootScope.setSession = setSession;
+    $rootScope.recoverSession = recoverSession;
+    $rootScope.cleanSession = cleanSession;
+    $rootScope.setUserToSession = setUserToSession;
+    $rootScope.setUserData = setUserData;
+
+    initData();
+
+    if($sessionStorage.session !== undefined){
+      recoverSession();
     }
 
   });

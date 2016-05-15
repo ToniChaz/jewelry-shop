@@ -1,41 +1,43 @@
 <div ng-controller="RegisterCtrl" class="register">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-    <form novalidate>
-      <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" ng-model="registerData.firstName" placeholder="Name" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="surname">Surname</label>
-        <input type="text" ng-model="registerData.surname" placeholder="Surname" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="email" ng-model="registerData.email" placeholder="Email" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" ng-model="registerData.password" placeholder="Password" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="address">Address</label>
-        <input type="text" ng-model="registerData.address" placeholder="Address" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <label for="bankAccount">Bank Account</label>
-        <input type="text" ng-model="registerData.bankAccount" placeholder="Bank Account" class="form-control" required>
-      </div>
-      <div class="form-group">
-        <div class="checkbox">
-          <label>
-            <input ng-model="registerData.terms" type="checkbox" required> Accept terms and conditions
-          </label>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <form novalidate>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" ng-model="registerData.firstName" placeholder="Name" class="form-control" required>
         </div>
-      </div>
-      <button type="submit" ng-disabled="!registerData.terms" ng-click="register(registerData)" class="btn btn-primary btn-block">Login</button>
-      <a href="#/" class="btn btn-default btn-block">Back to home</a>
-    </form>
+        <div class="form-group">
+          <label for="surname">Surname</label>
+          <input type="text" ng-model="registerData.surname" placeholder="Surname" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" ng-model="registerData.email" placeholder="Email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" ng-model="registerData.password" placeholder="Password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" ng-model="registerData.address" placeholder="Address" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="bankAccount">Bank Account</label>
+          <input type="text" ng-model="registerData.bankAccount" placeholder="Bank Account" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <div class="checkbox">
+            <label>
+              <input ng-model="registerData.terms" type="checkbox" required> Accept terms and conditions
+            </label>
+          </div>
+        </div>
+        <button type="submit" ng-disabled="!registerData.terms" ng-click="register(registerData)" class="btn btn-primary btn-block">Login</button>
+        <a href="#/" class="btn btn-default btn-block">Back to home</a>
+      </form>
+    </div>
+    <div class="col-md-3"></div>
   </div>
-  <div class="col-md-3"></div>
 </div>

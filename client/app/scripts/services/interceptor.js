@@ -25,11 +25,19 @@ angular.module('jewelryShopApp')
 
     Interceptor.call = function (request) {
 
-      $rootScope.loaded = false;
+      if (!request.noLoader) {
+        $rootScope.loaded = false;
+      }
 
       var deferred = $q.defer();
 
       request.url = urlBase + request.url;
+
+      if ($rootScope.accessToken) {
+        request.headers = {
+          AccessToken: $rootScope.accessToken
+        };
+      }
 
       $http(request)
         .then(function successCallback(response) {

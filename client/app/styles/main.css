@@ -72,36 +72,110 @@ footer {
 .navbar .checkbox {
   color: #ffffff;
 }
-
+.navbar .user-name p {
+  color: #ffffff;
+  margin: 7px;
+}
 /* alert */
 .alert {
   text-align: center;
 }
 
-/* shop section */
-ul.carousel {
-  width: 920px;
+/* home section */
+.carousel {
   height: 350px;
-  margin: 0 auto;
+  margin: 30px auto;
 }
-.rn-carousel-controls {
-  position: absolute;
-  width: 1166px;
-  top: 155px;
-  left: -15px;
-  color: #4cae4c;
-}
-.rn-carousel-control {
-  font-size: 9rem;
-}
-.home-boxes .col-md-4 p {
-  margin: 15px 0;
+.home-boxes p {
+  margin-top: 15px;
 }
 
 /* login section*/
 .login,
 .register {
   margin-top: 150px;
+}
+
+/* contact section */
+.contact form {
+  margin-bottom: 50px;
+}
+.contact .map-text {
+  margin-top: 20px;
+}
+
+/* shop section */
+.shop .row {
+  margin:25px auto;
+  position: relative;
+}
+.shop .btn {
+ float: right;
+}
+
+#live-search {
+  position: absolute;
+  top: 30%;
+  left: 25%;
+  right: 25%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/*Live Search styles start*/
+ul.searchresultspopup {
+  border: #a4bed4 1px solid;
+  margin-top: 0px;
+  padding: 0px;
+  z-index: 99999!important;
+  position: fixed;
+  background-color: white;
+  /*max-height:200px;*/
+  border-collapse: separate;
+  overflow-y: hidden;
+}
+
+ul.searchresultspopup > li {
+  cursor: pointer;
+  padding: 5px;
+  text-align: left;
+  list-style: none;
+  line-height: 20px;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+
+ul.searchresultspopup li.selected, ul.searchresultspopup li:hover {
+  background-color: #ededed;
+}
+
+ul.searchresultspopup b {
+  color: #4cae4c;
+}
+
+ul.searchresultspopup strong {
+  color: blue;
+}
+/*Live Search styles end*/
+
+/* my-section */
+.my-section form .btn {
+  margin-bottom: 25px;
+}
+.my-section .order {
+  border: 1px solid #ddd;
+  padding: 5px 15px;
+  margin: 25px;
+}
+.my-section .order-mask {
+  max-height: 475px;
+  overflow: auto;
+}
+
+/* my-cart */
+.my-cart .total .btn {
+  margin-bottom: 25px;
 }
 
 /* Responsive: Portrait tablets and up */
