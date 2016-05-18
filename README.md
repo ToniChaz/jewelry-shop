@@ -25,6 +25,7 @@
 * [Bootstrap] A sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.
 * [Karma] Brings a productive testing environment to developers.
 * [Jasmine] The Jasmine node package contains helper code for developing and running Jasmine tests for node-based projects.
+
 ##### Back-End:
 * [Jersey] RESTful Web Services framework
 * [Jetty] Jetty provides a Web server and javax.servlet container
@@ -38,8 +39,13 @@ And of course JESH itself is open source with a [public repository] on GitHub.
 
 ### Installation
 
-You need Maven, NodeJS and npm installed globally, and then:
+You need Maven, NodeJS and npm installed, and then:
+```sh
+$ npm install -g yo, grunt-cli bower generator-angular
+```
 *It is advisable have installed globaly npm dependencies: yo, grunt-cli, bower and generator-angular. Else you need add the .bin folder of .node_modules in your $PATH*
+
+*For windows installation you need install maven from [this guide] to can run mvn commands from cmd*
 
 ```sh
 $ git clone https://github.com/ToniChaz/jewelry-shop jewelry-shop
@@ -49,7 +55,8 @@ $ cd ../client
 $ npm install
 $ bower install
 ```
-### Run to localhost
+### Run to localhost 
+*In two differents tab of terminal*
 ```sh
 $ cd jewelry-shop/server
 $ mvn jetty:run
@@ -98,6 +105,4 @@ MIT
 [LOG4J]: <http://logging.apache.org/log4j/>
 [public repository]: <https://github.com/ToniChaz/jewelry-shop>
 [License]: <LICENSE.txt>
-
-
-
+[this guide]: http://www.mkyong.com/maven/how-to-install-maven-in-windows/
