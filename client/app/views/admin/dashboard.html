@@ -1,1 +1,74 @@
-<p>This is the admin/dashboard view.</p>
+<div ng-controller="AdminDashboardCtrl" class="dashboard">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Top sellers</div>
+        <div class="panel-body">
+          <div class="chart-container">
+            <canvas id="line" class="chart chart-line" chart-data="dataSells"
+                    chart-labels="labelsSells" chart-legend="true" chart-series="seriesSells">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">Top clients</div>
+        <div class="panel-body">
+          <div class="chart-container">
+            <canvas id="bar" class="chart chart-bar" chart-data="dataClients"
+                    chart-labels="labelsClients" chart-legend="true" chart-series="seriesClients">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Top Users</h2>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge">90</span>
+          Erika Johnson
+        </li>
+        <li class="list-group-item">
+          <span class="badge">40</span>
+          John Demo
+        </li>
+        <li class="list-group-item">
+          <span class="badge">14</span>
+          Mikky Nadal
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h2>Administrators Connexion</h2>
+      <ul class="list-group">
+        <li class="list-group-item">
+          John Travolta - 12/05/2016 22:32
+        </li>
+        <li class="list-group-item">
+          Jimmy Smith - 18/04/2016 08:49
+        </li>
+        <li class="list-group-item">
+          Tommy Piterson - 28/06/2016 14:05
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h2>Top Products</h2>
+      <li class="list-group-item">
+        Gold Ring
+      </li>
+      <li class="list-group-item">
+        Platinum Ring
+      </li>
+      <li class="list-group-item">
+        The Ring of Clara
+      </li>
+    </div>
+  </div>
+</div>

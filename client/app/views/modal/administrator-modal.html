@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h3 class="modal-title">I'm a modal!</h3>
+</div>
+<form novalidate>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" ng-model="registerData.firstName" placeholder="Name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" ng-model="registerData.surname" placeholder="Surname" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" ng-model="registerData.email" placeholder="Email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" ng-model="registerData.password" placeholder="Password" class="form-control" required>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="ok(registerData)">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</form>

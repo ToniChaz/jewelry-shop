@@ -18,6 +18,7 @@ angular
     'ngTouch',
     'ngStorage',
     'ui.bootstrap',
+    'chart.js',
     'config'
   ])
   .config(function ($routeProvider) {
@@ -53,10 +54,6 @@ angular
       .when('/contact', {
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl'
-      })
-      .when('/admin/login', {
-        templateUrl: 'views/admin/login.html',
-        controller: 'AdminLoginCtrl'
       })
       .when('/admin/dashboard', {
         templateUrl: 'views/admin/dashboard.html',

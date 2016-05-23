@@ -1,1 +1,34 @@
-<p>This is the admin/administrator view.</p>
+<div ng-controller="AdminAdministratorCtrl" class="administrator">
+  <div ng-controller="ModalCtrl"></div>
+  <div class="row show-grid">
+    <div class="col-md-3">
+      <button type="button" ng-click="openModal('lg', 'addAdministrator')" class="btn btn-block btn-success">+ Add administrator</button>
+    </div>
+    <div class="col-md-9"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>E-mail</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="administrator in administrators">
+          <td>{{administrator.name}}</td>
+          <td>{{administrator.surname}}</td>
+          <td>{{administrator.email}}</td>
+          <td>
+            <button type="button" ng-click="openModal('lg', 'editAdministrator', administrator)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" ng-click="openModal('lg', 'deleteAdministrator', administrator)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
