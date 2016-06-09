@@ -10,33 +10,48 @@
 angular.module('jewelryShopApp')
   .controller('ModalCtrl', function ($scope, $uibModal, $log) {
 
-    $scope.items = ['item1', 'item2', 'item3'];
-
     $scope.animationsEnabled = true;
 
-    $scope.open = function (size, action, userData) {
-console.log(size, action, userData)
+    function setTemplateOfModal(size) {
+      switch (size) {
+        case 'lg':
+          return 'views/modal/administrator-modal.html';
+          break;
+        case 'sm':
+          return 'views/modal/confirm-modal.html';
+          break;
+        default:
+          return 'views/modal/error-modal.html';
+          break;
+      }
+    }
+
+    $scope.open = function (size, action, modalData, callback) {
+
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
-        templateUrl: 'views/modal/administrator-modal.html',
+        templateUrl: setTemplateOfModal(size),
         controller: 'ModalInstanceCtrl',
         size: size,
         resolve: {
-          items: function () {
-            return $scope.items;
+          action: function () {
+            return action;
+          },
+          modalData: function () {
+            return modalData;
           }
         }
       });
 
-      modalInstance.result.then(function (selectedItem) {
-        $scope.selected = selectedItem;
+      modalInstance.result.then(function (data) {
+        callback(data);
       }, function () {
         $log.info('Modal dismissed at: ' + new Date());
       });
     };
 
-    $scope.$on('modal', function(event, size, action, userData){
-      $scope.open(size, action, userData);
+    $scope.$on('modal', function (event, size, action, modalData, callback) {
+      $scope.open(size, action, modalData, callback);
     });
 
   });
@@ -45,18 +60,37 @@ console.log(size, action, userData)
 // It is not the same as the $uibModal service used above.
 
 angular.module('jewelryShopApp')
-  .controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+  .controller('ModalInstanceCtrl', function ($scope, $rootScope, $uibModalInstance, action, modalData) {
 
-    $scope.items = items;
-    $scope.selected = {
-      item: $scope.items[0]
-    };
+    $scope.modalData = modalData;
+    $scope.formError = false;
 
     $scope.ok = function () {
-      $uibModalInstance.close($scope.selected.item);
+      if ($scope.modalDataForm.$valid || $scope.modalData.password === undefined) {
+        $uibModalInstance.close($scope.modalData);
+      } else {
+        $scope.formError = true;
+      }
+    };
+
+    $scope.confirm = function () {
+      $uibModalInstance.close($scope.modalData);
+    };
+
+    $scope.close = function () {
+      $scope.formError = false;
     };
 
     $scope.cancel = function () {
       $uibModalInstance.dismiss('cancel');
     };
+
+    function setModalTitle() {
+      $scope.title = action.replace(/([A-Z])/g, ' $1').replace(/^./, function (str) {
+        return str.toUpperCase();
+      });
+    }
+
+    setModalTitle();
+
   });

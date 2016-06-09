@@ -1,4 +1,4 @@
-<div ng-controller="AdminAdministratorCtrl" class="administrator">
+<div class="administrator">
   <div ng-controller="ModalCtrl"></div>
   <div class="row show-grid">
     <div class="col-md-3">
@@ -23,8 +23,8 @@
           <td>{{administrator.surname}}</td>
           <td>{{administrator.email}}</td>
           <td>
-            <button type="button" ng-click="openModal('lg', 'editAdministrator', administrator)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-            <button type="button" ng-click="openModal('lg', 'deleteAdministrator', administrator)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+            <button type="button" ng-click="openModal('lg', 'editAdministrator', administrator, $index)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" ng-click="openModal('sm', 'deleteAdministrator', administrator, $index)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
           </td>
         </tr>
         </tbody>
