@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('AdminUserCtrl', function ($rootScope, $location) {
+  .controller('AdminUserCtrl', function ($scope, $rootScope, $location, User) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -20,6 +20,38 @@ angular.module('jewelryShopApp')
         $location.path('/login');
       }
     }
+
+    User.getAll().then(function (response) {
+      $scope.users = response;
+    });
+
+    $scope.addUser = function (data) {
+      User.add(data).then(function (response) {
+        $scope.users.push(response);
+      });
+    };
+
+    $scope.editUser = function (data) {
+      User.update(data.id, data).then(function (response) {
+        $scope.users.splice(data.index, 1, response);
+
+      });
+    };
+
+    $scope.deleteUser = function (data) {
+      User.delete(data.id).then(function () {
+        $scope.users.splice(data.index, 1);
+      });
+    };
+
+    $scope.openModal = function (size, action, UserData, index) {
+      if (UserData) {
+        UserData.index = index;
+      }
+      $scope.$broadcast('modal', size, action, UserData, function (data) {
+        $scope[action](data);
+      });
+    };
     /*-------------------------------------
      | Init                               |
      -------------------------------------*/

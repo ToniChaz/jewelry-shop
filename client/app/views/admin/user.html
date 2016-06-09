@@ -1,1 +1,38 @@
-<p>This is the admin/user view.</p>
+<div class="user">
+  <div ng-controller="ModalCtrl"></div>
+  <div class="row show-grid">
+    <div class="col-md-3">
+      <button type="button" ng-click="openModal('lg', 'addUser')" class="btn btn-block btn-success">+ Add user</button>
+    </div>
+    <div class="col-md-9"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Email</th>
+          <th>Bank Account</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in users">
+          <td>{{user.name}}</td>
+          <td>{{user.surname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.bankAccount}}</td>
+          <td>{{user.address}}</td>
+          <td>
+            <button type="button" ng-click="openModal('lg', 'editUser', user, $index)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" ng-click="openModal('sm', 'deleteUser', user, $index)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

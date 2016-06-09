@@ -179,6 +179,8 @@ ul.searchresultspopup strong {
 }
 
 /* administrator */
+.product .row,
+.user .row,
 .administrator .row {
   margin-bottom: 20px;
 }

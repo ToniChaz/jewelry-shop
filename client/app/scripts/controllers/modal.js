@@ -12,10 +12,20 @@ angular.module('jewelryShopApp')
 
     $scope.animationsEnabled = true;
 
-    function setTemplateOfModal(size) {
+    function setLargeModal(action) {
+      if (action.indexOf('Administrator') > 0) {
+        return 'views/modal/administrator-modal.html';
+      } else if (action.indexOf('Product') > 0) {
+        return 'views/modal/product-modal.html';
+      } else {
+        return 'views/modal/user-modal.html';
+      }
+    }
+
+    function setTemplateOfModal(size, action) {
       switch (size) {
         case 'lg':
-          return 'views/modal/administrator-modal.html';
+          return setLargeModal(action);
           break;
         case 'sm':
           return 'views/modal/confirm-modal.html';
@@ -30,7 +40,7 @@ angular.module('jewelryShopApp')
 
       var modalInstance = $uibModal.open({
         animation: $scope.animationsEnabled,
-        templateUrl: setTemplateOfModal(size),
+        templateUrl: setTemplateOfModal(size, action),
         controller: 'ModalInstanceCtrl',
         size: size,
         resolve: {

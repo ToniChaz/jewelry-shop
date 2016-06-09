@@ -1,1 +1,36 @@
-<p>This is the admin/product view.</p>
+<div class="product">
+  <div ng-controller="ModalCtrl"></div>
+  <div class="row show-grid">
+    <div class="col-md-3">
+      <button type="button" ng-click="openModal('lg', 'addProduct')" class="btn btn-block btn-success">+ Add product</button>
+    </div>
+    <div class="col-md-9"></div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Category</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in products">
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.quantity}}</td>
+          <td>{{product.category}}</td>
+          <td>
+            <button type="button" ng-click="openModal('lg', 'editProduct', product, $index)" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+            <button type="button" ng-click="openModal('sm', 'deleteProduct', product, $index)" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

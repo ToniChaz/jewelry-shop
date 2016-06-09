@@ -37,6 +37,35 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
+    Product.add = function (productData) {
+
+      var request = {
+        method: 'POST',
+        url: '/product',
+        data: productData
+      };
+      return Interceptor.call(request);
+    };
+
+    Product.update = function (productId, productData) {
+
+      var request = {
+        method: 'PUT',
+        url: '/product/' + productId,
+        data: productData
+      };
+      return Interceptor.call(request);
+    };
+
+    Product.delete = function (productId) {
+
+      var request = {
+        method: 'DELETE',
+        url: '/product/' + productId
+      };
+      return Interceptor.call(request);
+    };
+
     /*-------------------------------------
      | Return                             |
      -------------------------------------*/

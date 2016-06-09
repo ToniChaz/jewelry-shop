@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h3 class="modal-title">{{title}}</h3>
+</div>
+<form novalidate name="modalDataForm" ng-submit="ok()">
+  <div ng-show="formError" class="alert alert-danger" role="alert" type="danger">
+    <button type="button" class="close" ng-click="close()">
+      <span aria-hidden="true">×</span>
+      <span class="sr-only">Close</span>
+    </button>
+    <div><span class="ng-binding ng-scope">All data is required or your e-mail is invalid.</span></div>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" ng-model="modalData.name" placeholder="Name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="surname">Surname</label>
+      <input type="text" ng-model="modalData.surname" placeholder="Surname" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" ng-model="modalData.email" placeholder="Email" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" ng-model="modalData.password" placeholder="Password" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="bankAccount">Bank Account</label>
+      <input type="text" ng-model="modalData.bankAccount" placeholder="Bank Account" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" ng-model="modalData.address" placeholder="Address" class="form-control" required>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" type="submit" >OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
