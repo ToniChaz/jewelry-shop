@@ -26,13 +26,10 @@ angular.module('jewelryShopApp')
       switch (size) {
         case 'lg':
           return setLargeModal(action);
-          break;
         case 'sm':
           return 'views/modal/confirm-modal.html';
-          break;
         default:
           return 'views/modal/error-modal.html';
-          break;
       }
     }
 
