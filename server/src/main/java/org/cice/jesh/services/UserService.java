@@ -1,13 +1,14 @@
 package org.cice.jesh.services;
 
 import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.classfile.Field;
 import org.cice.jesh.managers.UserManager;
 import org.cice.jesh.persistence.entities.UserDto;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by toni on 20/04/16.
@@ -32,13 +33,19 @@ public class UserService {
     @Consumes("application/json")
     public Response addUser(UserDto user) {
 
-        if (user == null || user.getName() == null || user.getSurname() == null || user.getEmail() == null || user.getAddress() == null || user.getbankAccount() == null || user.getPassword() == null) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("All user data is required").build();
-        } else {
+        Map<Object, Object> result = new HashMap<>(userManager.create(user));
 
-            UserDto result = userManager.create(user);
+        return Response.status((Integer) result.get("statusCode")).entity(result.get("response")).build();
+    }
 
-            return Response.status(Response.Status.OK).entity(result).build();
-        }
+    @PUT
+    @Path("{id}")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response updateUser(@PathParam("id") String id, UserDto user) throws Exception {
+
+        Map<Object, Object> result = new HashMap<>(userManager.update(id, user));
+
+        return Response.status((Integer) result.get("statusCode")).entity(result.get("response")).build();
     }
 }

@@ -2,8 +2,9 @@ package org.cice.jesh.persistence.dao;
 
 import org.cice.jesh.utils.Connexion;
 import org.hibernate.*;
+import org.hibernate.Query;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,26 +12,24 @@ import java.util.List;
  */
 public abstract class AbstractFactory<DtoType> {
 
-    protected final Class<DtoType> DTO_CLASS;
     protected Session session = Connexion.getSession();
+    private final Class<DtoType> dtoType;
 
-
-    protected AbstractFactory(Class<DtoType> clazz) {
-        this.DTO_CLASS = clazz;
+    protected AbstractFactory( Class<DtoType> clazz ) {
+        dtoType = clazz;
     }
 
     protected List<DtoType> findAll() {
 
-        List<DtoType> objects = null;
-        Transaction tx = session.beginTransaction();
+        List<DtoType> arrayList = null;
+
+        Transaction tx = null;
 
         try {
-            Query query = session.createQuery("FROM " + DTO_CLASS.getSimpleName());
+            tx = session.beginTransaction();
 
-            objects = new ArrayList<>();
-            for(final Object o : query.list()) {
-                objects.add((DtoType)o);
-            }
+            Query query = session.createQuery("FROM " + dtoType.getSimpleName());
+            arrayList = query.list();
 
         } catch (HibernateException e) {
             if (tx != null) {
@@ -42,7 +41,7 @@ public abstract class AbstractFactory<DtoType> {
             session.close();
         }
 
-        return objects;
+        return arrayList;
 
     }
 
@@ -51,20 +50,53 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType create(DtoType dto) {
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            session.save(dto);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.out.println(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+        return dto;
+    }
+
+    protected DtoType update(String id, DtoType dto) {
 
         Transaction tx = session.beginTransaction();
 
-        session.save(dto);
+        //DtoType student = session.load(dtoType, id);
+        //student.setName("Johnson");
+        session.update(id, dto);
         tx.commit();
         session.close();
 
         return dto;
     }
 
-    protected DtoType update(DtoType dto) {
-        return null;
+    protected void delete(Integer userId) {
+        /*EntityManager entityManager = emh.getEntityManager();
+
+        entityManager.getTransaction().begin();
+
+        C dto = entityManager.find( dtoClassType, id );
+        entityManager.remove(dto);
+        entityManager.getTransaction().commit();*/
     }
 
-    protected void delete(Integer userId) {
+    protected  boolean checkIfExist(String columnToSearch, String valueToSearch){
+        Query query = session.createQuery("SELECT 1 FROM " + dtoType.getSimpleName() + " where " + columnToSearch + "=  :str").setString("str", valueToSearch );
+        return (query.uniqueResult() != null);
     }
+
 }

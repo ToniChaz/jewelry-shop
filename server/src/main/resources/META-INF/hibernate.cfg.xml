@@ -24,6 +24,6 @@
         <property name="hbm2ddl.auto">update</property>
 
         <!-- Mapping -->
-        <mapping class="org.cice.jesh.persistence.entities.UserDto"/>
+        <mapping class="org.cice.jesh.persistence.entities.UserDto" />
     </session-factory>
 </hibernate-configuration>

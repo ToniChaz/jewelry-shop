@@ -1,5 +1,7 @@
 package org.cice.jesh.persistence.entities;
 
+import org.hibernate.annotations.DynamicInsert;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -8,12 +10,13 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "user")
+@DynamicInsert(value=true)
 public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 144585071807476496L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Integer id;
     @Column(name = "name")

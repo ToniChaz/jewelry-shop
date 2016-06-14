@@ -33,12 +33,17 @@ public class UserDaoImpl extends AbstractFactory<UserDto> implements UserDao {
     }
 
     @Override
-    public UserDto update(UserDto user) {
-        return super.update(user);
+    public UserDto update(String id, UserDto user) {
+        return super.update(id, user);
     }
 
     @Override
     public void delete(Integer userId) {
         super.delete(userId);
+    }
+
+    @Override
+    public boolean exist(String columnToSearch, String valueToSearch) {
+        return super.checkIfExist(columnToSearch, valueToSearch);
     }
 }
