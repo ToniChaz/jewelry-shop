@@ -1,7 +1,5 @@
 package org.cice.jesh.persistence.entities;
 
-import org.hibernate.annotations.DynamicInsert;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
