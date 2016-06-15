@@ -15,9 +15,9 @@ public interface UserDao {
 
     UserDto create(UserDto user);
 
-    UserDto update(String id, UserDto user);
+    UserDto update(UserDto user);
 
-    void delete(Integer userId);
+    void delete(UserDto user);
 
     boolean exist(String columnToSearch, String valueToSearch);
 }

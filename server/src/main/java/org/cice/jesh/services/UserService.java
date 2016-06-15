@@ -7,8 +7,8 @@ import org.cice.jesh.persistence.entities.UserDto;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import org.cice.jesh.filters.AuthenticationFilter;
 
 /**
  * Created by toni on 20/04/16.
@@ -20,32 +20,59 @@ public class UserService {
 
     @GET
     @Produces("application/json")
+    @AuthenticationFilter.AuthenticationFilterImpl
     public Response getAllUsers() {
+        
+        Map<Object, Object> result = new HashMap<>(userManager.getAllUsers());
+        String responseJSON = new Gson().toJson(result.get("response"));
+        
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
+    }
+    
+    @GET
+    @Path("{id}")
+    @Produces("application/json")
+    @AuthenticationFilter.AuthenticationFilterImpl
+    public Response getUser(@PathParam("id") String id) throws Exception {
 
-        List<UserDto> result = userManager.getAllUsers();
-        String listJSON = new Gson().toJson(result);
-
-        return Response.ok().entity(listJSON).build();
+        Map<Object, Object> result = new HashMap<>(userManager.getUser(id));
+        String responseJSON = new Gson().toJson(result.get("response"));
+        
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
     }
 
     @POST
     @Produces("application/json")
-    @Consumes("application/json")
+    @Consumes("application/json")    
     public Response addUser(UserDto user) {
 
         Map<Object, Object> result = new HashMap<>(userManager.create(user));
-
-        return Response.status((Integer) result.get("statusCode")).entity(result.get("response")).build();
+        String responseJSON = new Gson().toJson(result.get("response"));
+        
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
     }
 
     @PUT
     @Path("{id}")
     @Produces("application/json")
     @Consumes("application/json")
+    @AuthenticationFilter.AuthenticationFilterImpl
     public Response updateUser(@PathParam("id") String id, UserDto user) throws Exception {
 
         Map<Object, Object> result = new HashMap<>(userManager.update(id, user));
+        String responseJSON = new Gson().toJson(result.get("response"));
+        
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
+    }
+    
+    @DELETE
+    @Path("{id}")
+    @AuthenticationFilter.AuthenticationFilterImpl
+    public Response updateUser(@PathParam("id") String id) throws Exception {
 
-        return Response.status((Integer) result.get("statusCode")).entity(result.get("response")).build();
+        Map<Object, Object> result = new HashMap<>(userManager.delete(id));
+        String responseJSON = new Gson().toJson(result.get("response"));
+        
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
     }
 }

@@ -1,41 +1,38 @@
 package org.cice.jesh.persistence.dao;
 
-import org.cice.jesh.utils.Connexion;
+import org.cice.jesh.utils.ConnectionUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
-import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by toni on 20/04/16.
  */
 public abstract class AbstractFactory<DtoType> {
-
-    protected Session session = Connexion.getSession();
+    
+    static final Logger logger = LogManager.getLogger(AbstractFactory.class.getName());
     private final Class<DtoType> dtoType;
 
-    protected AbstractFactory( Class<DtoType> clazz ) {
+    protected AbstractFactory(Class<DtoType> clazz) {
         dtoType = clazz;
     }
 
     protected List<DtoType> findAll() {
-
-        List<DtoType> arrayList = null;
-
-        Transaction tx = null;
-
+        
+        Session session = ConnectionUtil.getSession();
+        List<DtoType> arrayList = null;        
+        logger.info("Find all from: " + dtoType.getSimpleName() + " class");
+        
         try {
-            tx = session.beginTransaction();
 
             Query query = session.createQuery("FROM " + dtoType.getSimpleName());
             arrayList = query.list();
 
         } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
-            }
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             e.getMessage();
         } finally {
             session.close();
@@ -46,12 +43,31 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType get(Integer id) {
-        return null;
+        
+        Session session = ConnectionUtil.getSession();
+        DtoType newDto = null;
+        
+        logger.info("Get from: " + dtoType.getSimpleName() + " class");
+
+        try {
+            newDto = session.get(dtoType, id);
+        } catch (HibernateException e) {
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+        return newDto;
     }
 
     protected DtoType create(DtoType dto) {
+        
+        Session session = ConnectionUtil.getSession();
         Transaction tx = null;
 
+        logger.info("Create from: " + dtoType.getSimpleName() + " class");
+        
         try {
             tx = session.beginTransaction();
 
@@ -62,7 +78,7 @@ public abstract class AbstractFactory<DtoType> {
             if (tx != null) {
                 tx.rollback();
             }
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
             e.getMessage();
         } finally {
             session.close();
@@ -71,31 +87,59 @@ public abstract class AbstractFactory<DtoType> {
         return dto;
     }
 
-    protected DtoType update(String id, DtoType dto) {
+    protected DtoType update(DtoType dto) {
+        
+        Session session = ConnectionUtil.getSession();
+        Transaction tx = null;
 
-        Transaction tx = session.beginTransaction();
+        logger.info("Update from: " + dtoType.getSimpleName() + " class");
+        
+        try {
+            tx = session.beginTransaction();
+            session.merge(dto);
+            tx.commit();
 
-        //DtoType student = session.load(dtoType, id);
-        //student.setName("Johnson");
-        session.update(id, dto);
-        tx.commit();
-        session.close();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
 
         return dto;
     }
 
-    protected void delete(Integer userId) {
-        /*EntityManager entityManager = emh.getEntityManager();
+    protected void delete(DtoType dto) {
+        
+        Session session = ConnectionUtil.getSession();
+        Transaction tx = null;
 
-        entityManager.getTransaction().begin();
+        logger.info("Delete from: " + dtoType.getSimpleName() + " class");
+        
+        try {
+            tx = session.beginTransaction();
+            session.delete(dto);
+            tx.commit();
 
-        C dto = entityManager.find( dtoClassType, id );
-        entityManager.remove(dto);
-        entityManager.getTransaction().commit();*/
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
     }
 
-    protected  boolean checkIfExist(String columnToSearch, String valueToSearch){
-        Query query = session.createQuery("SELECT 1 FROM " + dtoType.getSimpleName() + " where " + columnToSearch + "=  :str").setString("str", valueToSearch );
+    protected boolean checkIfExist(String columnToSearch, String valueToSearch) {
+        
+        Session session = ConnectionUtil.getSession();        
+        
+        Query query = session.createQuery("SELECT 1 FROM " + dtoType.getSimpleName() + " where " + columnToSearch + "=  :str").setString("str", valueToSearch);
         return (query.uniqueResult() != null);
     }
 

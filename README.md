@@ -3,6 +3,7 @@
 
 # API
 * Login
+* Logout
 * Register
 * User
 * Administrator
@@ -11,7 +12,7 @@
 * Cart
 
 ### Version
-0.0.1
+1.0.0
 
 ### Tech
 
@@ -63,6 +64,10 @@ $ mvn jetty:run
 $ cd ../client
 $ grunt serve
 ```
+Or you can set de **jeety:run** command in your NetBeans configuration:
+
+Go to _File | Project Properties_ and select the _Actions_ category. Must look for the action _Run_ project and select it. In the _Execute goals_ field add _jetty:run_. This will start Jetty if we run our project.
+
 
 ### Build
 ```sh

@@ -4,19 +4,23 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Created by toni on 12/06/16.
  */
-public class Connexion {
+public class ConnectionUtil {
 
+    static final Logger logger = LogManager.getLogger(ConnectionUtil.class.getName());
     private static final SessionFactory sessionFactory;
 
     static {
         try {
-            sessionFactory = new Configuration().configure("META-INF/hibernate.cfg.xml").buildSessionFactory();
+            sessionFactory = new Configuration().configure().buildSessionFactory();
 
         } catch (Exception ex) {
-            System.err.println("Initial session factory creation failed." + ex);
+            logger.error("Initial session factory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -24,5 +28,4 @@ public class Connexion {
     public static Session getSession() {
         return sessionFactory.openSession();
     }
-
 }

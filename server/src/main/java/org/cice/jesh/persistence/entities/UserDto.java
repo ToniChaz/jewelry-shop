@@ -10,7 +10,6 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "user")
-@DynamicInsert(value=true)
 public class UserDto implements Serializable {
 
     private static final long serialVersionUID = 144585071807476496L;
@@ -110,4 +109,10 @@ public class UserDto implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", bankAccount=" + bankAccount + ", address=" + address + ", password=" + password + '}';
+    }
+
 }
