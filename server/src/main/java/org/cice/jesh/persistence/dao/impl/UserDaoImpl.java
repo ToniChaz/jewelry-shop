@@ -43,7 +43,7 @@ public class UserDaoImpl extends AbstractFactory<UserDto> implements UserDao {
     }
 
     @Override
-    public boolean exist(String columnToSearch, String valueToSearch) {
-        return super.checkIfExist(columnToSearch, valueToSearch);
+    public UserDto exist(String columnToSearch, String valueToSearch) {
+        return super.findByColumnName(columnToSearch, valueToSearch);
     }
 }

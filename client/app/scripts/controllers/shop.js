@@ -22,7 +22,7 @@ angular.module('jewelryShopApp')
     });
 
     $scope.searchCallback = function (params) {
-      return Product.get(params.query);
+      return Product.find(params.query);
     };
 
     $scope.selected = function (product) {

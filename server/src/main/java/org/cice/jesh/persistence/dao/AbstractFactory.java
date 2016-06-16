@@ -135,12 +135,32 @@ public abstract class AbstractFactory<DtoType> {
         }
     }
 
-    protected boolean checkIfExist(String columnToSearch, String valueToSearch) {
+    protected DtoType findByColumnName(String columnToSearch, String valueToSearch) {
         
         Session session = ConnectionUtil.getSession();        
         
-        Query query = session.createQuery("SELECT 1 FROM " + dtoType.getSimpleName() + " where " + columnToSearch + "=  :str").setString("str", valueToSearch);
-        return (query.uniqueResult() != null);
+        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :str").setString("str", valueToSearch);
+        DtoType queryDtoType = (DtoType) query.uniqueResult();
+        
+        return queryDtoType;
+    }
+    
+    protected DtoType findByColumnName(String columnToSearch, int valueToSearch) {
+        
+        Session session = ConnectionUtil.getSession();        
+        
+        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :int").setInteger("int", valueToSearch);
+        DtoType queryDtoType = (DtoType) query.uniqueResult();
+        
+        return queryDtoType;
+    }
+    
+    @SuppressWarnings("empty-statement")
+    protected List<DtoType> find(String columnToSearch, String valueToSearch){        
+        
+        Session session = ConnectionUtil.getSession();
+        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " LIKE  :str").setString("str", "%"+valueToSearch+"%");
+        return query.list();
     }
 
 }

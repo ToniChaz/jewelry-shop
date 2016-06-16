@@ -437,7 +437,8 @@ module.exports = function (grunt) {
         constants: {
           ENVIRONMENT: {
             name: 'development',
-            apiEndpoint: 'http://private-7c384-jesh2.apiary-mock.com'
+            //apiEndpoint: 'http://private-7c384-jesh2.apiary-mock.com'
+            apiEndpoint: 'http://localhost:8080/api'
           }
         }
       },
@@ -445,7 +446,7 @@ module.exports = function (grunt) {
         constants: {
           ENVIRONMENT: {
             name: 'production',
-            apiEndpoint: 'http://localhost:5000'
+            apiEndpoint: '/api'
           }
         }
       }

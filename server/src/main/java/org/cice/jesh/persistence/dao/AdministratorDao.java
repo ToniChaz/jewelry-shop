@@ -18,5 +18,5 @@ public interface AdministratorDao {
 
     void delete(AdministratorDto administrator);
 
-    boolean exist(String columnToSearch, String valueToSearch);
+    AdministratorDto exist(String columnToSearch, String valueToSearch);
 }

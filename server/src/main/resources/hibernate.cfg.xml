@@ -27,7 +27,7 @@
         <mapping class="org.cice.jesh.persistence.entities.UserDto" />
         <mapping class="org.cice.jesh.persistence.entities.AdministratorDto" />
         <mapping class="org.cice.jesh.persistence.entities.ProductDto" />
-        <mapping class="org.cice.jesh.persistence.entities.OrderDto" />
+        <mapping class="org.cice.jesh.persistence.entities.TokenDto" />
         <mapping class="org.cice.jesh.persistence.entities.CartDto" />
     </session-factory>
 </hibernate-configuration>

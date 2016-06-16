@@ -8,7 +8,7 @@
  * Factory in the jewelryShopApp.
  */
 angular.module('jewelryShopApp')
-  .factory('Access', function ($rootScope, $location, $sessionStorage, Interceptor, User) {
+  .factory('Access', function ($rootScope, $location, Interceptor, User, Administrator) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -21,7 +21,7 @@ angular.module('jewelryShopApp')
 
       var request = {
         method: 'POST',
-        url: '/login',
+        url: '/access/login',
         data: {
           email: loginData.email,
           password: loginData.password
@@ -29,16 +29,26 @@ angular.module('jewelryShopApp')
       };
       return Interceptor.call(request).then(function (response) {
         $rootScope.setData(response);
-
+        
         if (loginData.session) {
           $rootScope.setSession(response);
         }
+        
+        if ($rootScope.isAdministrator){
+            Administrator.get($rootScope.userId).then(function(response){
+                $rootScope.setUserData(response);
+                $rootScope.setUserToSession(response);
+              });
+        } else {
+            User.get($rootScope.userId).then(function(response){
+                $rootScope.setUserData(response);
+                $rootScope.setUserToSession(response);
+              });
+        }
+        
 
-        User.get($rootScope.userId).then(function(response){
-          $rootScope.setUserData(response);
-          $rootScope.setUserToSession(response);
-        });
-
+      },function(response){
+          $rootScope.$broadcast('alert', 'danger', response.status + " - " + response.data);
       });
     };
 
@@ -46,7 +56,7 @@ angular.module('jewelryShopApp')
 
       var request = {
         method: 'GET',
-        url: '/logout'
+        url: '/access/logout/'
       };
       return Interceptor.call(request).then(function () {
         $rootScope.cleanSession();

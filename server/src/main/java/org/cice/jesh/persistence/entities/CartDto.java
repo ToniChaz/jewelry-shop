@@ -7,9 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import org.hibernate.annotations.Cascade;
+
 /**
  * Created by toni on 20/04/16.
  */
@@ -23,17 +24,19 @@ public class CartDto {
     @Column(name = "cart_id")
     private Integer cartId;
 
-    @OneToOne(mappedBy = "cart_products")
-    @Cascade(value = org.hibernate.annotations.CascadeType.ALL)
-    private ProductDto products;
+    @Column(name = "total")
+    private Double total;
 
-    public CartDto(Integer cartId, ProductDto products) {
-        this.cartId = cartId;
-        this.products = products;
+    public CartDto() {
     }
 
-    public CartDto(ProductDto products) {
-        this.products = products;
+    public CartDto(Integer cartId, Double total) {
+        this.cartId = cartId;
+        this.total = total;
+    }
+
+    public CartDto(Double total) {
+        this.total = total;
     }
 
     public Integer getCartId() {
@@ -44,18 +47,17 @@ public class CartDto {
         this.cartId = cartId;
     }
 
-    public ProductDto getProducts() {
-        return products;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setProducts(ProductDto products) {
-        this.products = products;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     @Override
     public String toString() {
-        return "CartDto{" + "cartId=" + cartId + ", products=" + products + '}';
-    }
-    
+        return "CartDto{" + "cartId=" + cartId + ", total=" + total + '}';
+    }    
     
 }

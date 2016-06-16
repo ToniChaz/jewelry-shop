@@ -8,9 +8,11 @@ import java.lang.annotation.Target;
 import javax.ws.rs.NameBinding;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cice.jesh.persistence.dao.impl.TokenDaoImpl;
 
 /**
  *
@@ -21,15 +23,24 @@ import org.apache.logging.log4j.Logger;
 public class AuthenticationFilter implements ContainerRequestFilter {
 
     static final Logger logger = LogManager.getLogger(AuthenticationFilter.class.getName());
+
+    private final TokenDaoImpl tokenDaoImpl = new TokenDaoImpl();
     
     @NameBinding
     @Target({ElementType.METHOD, ElementType.TYPE})
     @Retention(RetentionPolicy.RUNTIME)
-    public @interface AuthenticationFilterImpl {}
-    
+    public @interface AuthenticationFilterImpl {
+    }
+
     @Override
     public void filter(ContainerRequestContext request) throws IOException {
-        logger.info("********************* THIS RESOURCE NEED AUTH ********************");        
+
+        String accessToken = request.getHeaderString("AccessToken");
+
+        if (accessToken == null || tokenDaoImpl.validToken("token", accessToken) == null) {
+            logger.info("Invalid access token or null.");
+            request.abortWith(Response.status(401).entity("Unauthorized").build());
+        }
+
     }
-    
 }

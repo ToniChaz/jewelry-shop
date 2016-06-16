@@ -27,11 +27,20 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
-    Product.get = function (query) {
+    Product.get = function (productId) {
 
       var request = {
         method: 'GET',
-        url: '/product?query=' + query,
+        url: '/product/' + productId
+      };
+      return Interceptor.call(request);
+    };
+    
+    Product.find = function (query) {
+
+      var request = {
+        method: 'GET',
+        url: '/product/find?query=' + query,
         noLoader: true
       };
       return Interceptor.call(request);

@@ -10,6 +10,7 @@ import org.cice.jesh.persistence.entities.AdministratorDto;
  * Created by toni on 20/04/16.
  */
 public class AdministratorDaoImpl extends AbstractFactory<AdministratorDto> implements AdministratorDao {
+    
     @Inject
     public AdministratorDaoImpl() {
         super(AdministratorDto.class);
@@ -41,7 +42,7 @@ public class AdministratorDaoImpl extends AbstractFactory<AdministratorDto> impl
     }
 
     @Override
-    public boolean exist(String columnToSearch, String valueToSearch) {
-        return super.checkIfExist(columnToSearch, valueToSearch);
+    public AdministratorDto exist(String columnToSearch, String valueToSearch) {
+        return super.findByColumnName(columnToSearch, valueToSearch);
     }
 }

@@ -19,7 +19,7 @@ public class ProductDto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "product_id")
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -29,7 +29,6 @@ public class ProductDto implements Serializable {
     private Integer quantity;
     @Column(name = "category")
     private String category;
-
 
     public ProductDto() {
     }

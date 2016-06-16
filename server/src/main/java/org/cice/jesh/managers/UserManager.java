@@ -61,7 +61,7 @@ public class UserManager {
 
             result.put("statusCode", 400);
             result.put("response", "All user data is required");
-        } else if (userDaoImpl.exist("email", user.getEmail())) {
+        } else if (userDaoImpl.exist("email", user.getEmail()) != null) {
             result.put("statusCode", 400);
             result.put("response", "This email is already registered.");
         } else {

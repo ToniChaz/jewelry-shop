@@ -60,7 +60,7 @@ public class AdministratorManager {
 
             result.put("statusCode", 400);
             result.put("response", "All administrator data is required");
-        } else if (administratorDaoImpl.exist("email", administrator.getEmail())) {
+        } else if (administratorDaoImpl.exist("email", administrator.getEmail()) != null) {
             result.put("statusCode", 400);
             result.put("response", "This email is already registered.");
         } else {

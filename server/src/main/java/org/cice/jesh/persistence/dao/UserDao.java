@@ -19,5 +19,5 @@ public interface UserDao {
 
     void delete(UserDto user);
 
-    boolean exist(String columnToSearch, String valueToSearch);
+    UserDto exist(String columnToSearch, String valueToSearch);
 }
