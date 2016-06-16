@@ -35,7 +35,7 @@ angular.module('jewelryShopApp')
       };
       return Interceptor.call(request);
     };
-    
+
     Product.find = function (query) {
 
       var request = {
@@ -57,6 +57,8 @@ angular.module('jewelryShopApp')
     };
 
     Product.update = function (productId, productData) {
+
+      delete productData.index;
 
       var request = {
         method: 'PUT',

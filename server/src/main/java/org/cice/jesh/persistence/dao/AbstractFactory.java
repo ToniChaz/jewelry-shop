@@ -154,8 +154,7 @@ public abstract class AbstractFactory<DtoType> {
         
         return queryDtoType;
     }
-    
-    @SuppressWarnings("empty-statement")
+
     protected List<DtoType> find(String columnToSearch, String valueToSearch){        
         
         Session session = ConnectionUtil.getSession();

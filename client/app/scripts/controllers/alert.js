@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('AlertCtrl', function ($scope, $rootScope){
+  .controller('AlertCtrl', function ($scope, $rootScope, $timeout) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -17,11 +17,15 @@ angular.module('jewelryShopApp')
     /*-------------------------------------
      | Functions                          |
      -------------------------------------*/
-    $scope.addAlert = function(type, msg) {
-      $scope.alerts.push({ type: type, msg: msg });
+    $scope.addAlert = function (type, msg) {
+      $scope.alerts.push({type: type, msg: msg});
+
+      $timeout(function () {
+        $scope.closeAlert($scope.alerts.length - 1);
+      }, 4000);
     };
 
-    $scope.closeAlert = function(index) {
+    $scope.closeAlert = function (index) {
       $scope.alerts.splice(index, 1);
     };
 
@@ -34,7 +38,7 @@ angular.module('jewelryShopApp')
      * # Alert event
      * $rootScope.$broadcast('alert', params);
      */
-    $rootScope.$on('alert', function(event, type, msg) {
+    $rootScope.$on('alert', function (event, type, msg) {
       $scope.addAlert(type, msg);
     });
 

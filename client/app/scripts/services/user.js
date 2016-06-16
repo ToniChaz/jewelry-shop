@@ -48,6 +48,8 @@ angular.module('jewelryShopApp')
 
     User.update = function (userId, userData) {
 
+      delete userData.index;
+
       var request = {
         method: 'PUT',
         url: '/user/' + userId,

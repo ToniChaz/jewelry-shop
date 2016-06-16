@@ -47,6 +47,8 @@ angular.module('jewelryShopApp')
 
     Administrator.update = function (userId, userData) {
 
+      delete userData.index;
+
       var request = {
         method: 'PUT',
         url: '/administrator/' + userId,
