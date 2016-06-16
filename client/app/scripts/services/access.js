@@ -29,23 +29,23 @@ angular.module('jewelryShopApp')
       };
       return Interceptor.call(request).then(function (response) {
         $rootScope.setData(response);
-        
+
         if (loginData.session) {
           $rootScope.setSession(response);
         }
-        
+
         if ($rootScope.isAdministrator){
             Administrator.get($rootScope.userId).then(function(response){
                 $rootScope.setUserData(response);
-                $rootScope.setUserToSession(response);
+                //$rootScope.setUserToSession(response);
               });
         } else {
             User.get($rootScope.userId).then(function(response){
                 $rootScope.setUserData(response);
-                $rootScope.setUserToSession(response);
+                //$rootScope.setUserToSession(response);
               });
         }
-        
+
 
       },function(response){
           $rootScope.$broadcast('alert', 'danger', response.status + " - " + response.data);

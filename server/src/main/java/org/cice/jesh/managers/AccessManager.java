@@ -98,15 +98,19 @@ public class AccessManager {
     private String generateAccessToken(Integer id) {
         
         TokenDto existToken = tokenDaoImpl.exist("user_id", id);
-        TokenDto newToken = new TokenDto(id);
-        
+        String token = UUID.randomUUID().toString();
+
+
         if (existToken == null) {
+            TokenDto newToken = new TokenDto();
+            newToken.setId(id);
+            newToken.setToken(token);
             tokenDaoImpl.create(newToken);
         } else {
-            existToken.setToken(newToken.getToken());
+            existToken.setToken(token);
             tokenDaoImpl.update(existToken);
         }
         
-        return newToken.getToken();
+        return token;
     }
 }

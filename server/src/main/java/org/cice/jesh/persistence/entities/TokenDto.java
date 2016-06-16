@@ -6,7 +6,6 @@
 package org.cice.jesh.persistence.entities;
 
 import java.io.Serializable;
-import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,9 +41,9 @@ public class TokenDto implements Serializable {
         this.token = token;
     }
 
-    public TokenDto(Integer userId) {
+    public TokenDto(Integer userId, String token) {
         this.userId = userId;
-        this.token = UUID.randomUUID().toString();
+        this.token = token;
     }
 
     public Integer getId() {

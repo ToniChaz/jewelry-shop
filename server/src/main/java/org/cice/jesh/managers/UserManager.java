@@ -4,7 +4,9 @@ import org.cice.jesh.persistence.dao.impl.UserDaoImpl;
 import org.cice.jesh.persistence.entities.UserDto;
 import org.cice.jesh.utils.ParserUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,8 +24,20 @@ public class UserManager {
 
         Map<Object, Object> result = new HashMap<>();
 
-        result.put("statusCode", 200);
-        result.put("response", userDaoImpl.findAll());
+        List<UserDto> usersList = userDaoImpl.findAll();
+        List<UserDto> SecureUsersList = new ArrayList<>();
+
+        if (usersList.size() > 0) {
+            for (UserDto item : usersList) {
+                item.setPassword("");
+                SecureUsersList.add(item);
+            }
+            result.put("statusCode", 200);
+            result.put("response", SecureUsersList);
+        } else {
+            result.put("statusCode", 200);
+            result.put("response", usersList);
+        }
 
         return result;
     }
@@ -45,6 +59,7 @@ public class UserManager {
                 result.put("statusCode", 404);
                 result.put("response", "User not found");
             } else {
+                originalUser.setPassword("");
                 result.put("statusCode", 200);
                 result.put("response", originalUser);
             }

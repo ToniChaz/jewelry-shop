@@ -10,6 +10,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.Provider;
+
+import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.cice.jesh.persistence.dao.impl.TokenDaoImpl;
@@ -39,7 +41,8 @@ public class AuthenticationFilter implements ContainerRequestFilter {
 
         if (accessToken == null || tokenDaoImpl.validToken("token", accessToken) == null) {
             logger.info("Invalid access token or null.");
-            request.abortWith(Response.status(401).entity("Unauthorized").build());
+            String responseJSON = new Gson().toJson("Unauthorized");
+            request.abortWith(Response.status(401).entity(responseJSON).build());
         }
 
     }
