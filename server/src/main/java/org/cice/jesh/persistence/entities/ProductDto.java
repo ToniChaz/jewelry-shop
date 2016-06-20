@@ -1,11 +1,13 @@
 package org.cice.jesh.persistence.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,7 +17,7 @@ import javax.persistence.Table;
 @Table(name = "product")
 public class ProductDto implements Serializable {
 
-    private static final long serialVersionUID = 144585071807476496L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,23 +31,28 @@ public class ProductDto implements Serializable {
     private Integer quantity;
     @Column(name = "category")
     private String category;
+    
+    @ManyToMany(mappedBy="productsList")
+    private List<OrderDto> ordersList;
 
     public ProductDto() {
     }
 
-    public ProductDto(Integer id, String name, Double price, Integer quantity, String category) {
+    public ProductDto(Integer id, String name, Double price, Integer quantity, String category, List<OrderDto> ordersList) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+        this.ordersList = ordersList;
     }
 
-    public ProductDto(String name, Double price, Integer quantity, String category) {
+    public ProductDto(String name, Double price, Integer quantity, String category, List<OrderDto> ordersList) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+        this.ordersList = ordersList;
     }
 
     public Integer getId() {
@@ -88,9 +95,17 @@ public class ProductDto implements Serializable {
         this.category = category;
     }
 
+    public List<OrderDto> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(List<OrderDto> ordersList) {
+        this.ordersList = ordersList;
+    }
+
     @Override
     public String toString() {
-        return "ProductDto{" + "id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", category=" + category + '}';
+        return "ProductDto{" + "id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", category=" + category + ", ordersList=" + ordersList + '}';
     }
 
 }

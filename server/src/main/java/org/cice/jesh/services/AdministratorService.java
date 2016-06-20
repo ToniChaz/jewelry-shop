@@ -75,7 +75,7 @@ public class AdministratorService {
     @DELETE
     @Path("{id}")
     @AuthenticationFilter.AuthenticationFilterImpl
-    public Response updateAdministrator(@PathParam("id") String id) throws Exception {
+    public Response deleteAdministrator(@PathParam("id") String id) throws Exception {
 
         Map<Object, Object> result = new HashMap<>(administratorManager.delete(id));
         String responseJSON = new Gson().toJson(result.get("response"));

@@ -84,7 +84,7 @@ public class ProductService {
     @DELETE
     @Path("{id}")
     @AuthenticationFilter.AuthenticationFilterImpl
-    public Response updateProduct(@PathParam("id") String id) throws Exception {
+    public Response deleteProduct(@PathParam("id") String id) throws Exception {
 
         Map<Object, Object> result = new HashMap<>(productManager.delete(id));
         String responseJSON = new Gson().toJson(result.get("response"));

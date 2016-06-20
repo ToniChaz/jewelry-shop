@@ -54,7 +54,7 @@ public class AdministratorManager {
         } else {
 
             Integer administratorId = ParserUtil.stringToInteger(id);
-            AdministratorDto originalAdministrator = getAdministrator(administratorId);
+            AdministratorDto originalAdministrator = getAdministratorById(administratorId);
 
             if (originalAdministrator == null) {
                 result.put("statusCode", 404);
@@ -101,7 +101,7 @@ public class AdministratorManager {
             Integer administratorId = ParserUtil.stringToInteger(id);
 
             if (administrator.getPassword() == null) {
-                AdministratorDto originalAdministrator = getAdministrator(administratorId);
+                AdministratorDto originalAdministrator = getAdministratorById(administratorId);
                 administrator.setPassword(originalAdministrator.getPassword());
             }
 
@@ -125,7 +125,7 @@ public class AdministratorManager {
         } else {
 
             Integer administratorId = ParserUtil.stringToInteger(id);
-            AdministratorDto originalAdministrator = getAdministrator(administratorId);
+            AdministratorDto originalAdministrator = getAdministratorById(administratorId);
 
             if (originalAdministrator == null) {
                 result.put("statusCode", 404);
@@ -143,7 +143,7 @@ public class AdministratorManager {
 
     }
 
-    public AdministratorDto getAdministrator(Integer id) {
+    public AdministratorDto getAdministratorById(Integer id) {
         return administratorDaoImpl.getAdministrator(id);
     }
 }

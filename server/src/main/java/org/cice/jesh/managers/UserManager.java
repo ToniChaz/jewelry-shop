@@ -53,7 +53,7 @@ public class UserManager {
         } else {
             
             Integer userId = ParserUtil.stringToInteger(id);
-            UserDto originalUser = getUser(userId);
+            UserDto originalUser = getUserById(userId);
             
             if (originalUser == null) {
                 result.put("statusCode", 404);
@@ -100,7 +100,7 @@ public class UserManager {
             Integer userId = ParserUtil.stringToInteger(id);
             
             if(user.getPassword() == null){
-                UserDto originalUser = getUser(userId);
+                UserDto originalUser = getUserById(userId);
                 user.setPassword(originalUser.getPassword());
             }
             
@@ -124,7 +124,7 @@ public class UserManager {
         } else {
             
             Integer userId = ParserUtil.stringToInteger(id);
-            UserDto originalUser = getUser(userId);
+            UserDto originalUser = getUserById(userId);
             
             if (originalUser == null) {
                 result.put("statusCode", 404);
@@ -142,7 +142,7 @@ public class UserManager {
         
     }
     
-    public UserDto getUser(Integer id){    
+    public UserDto getUserById(Integer id){    
         return userDaoImpl.getUser(id);
     }
 }

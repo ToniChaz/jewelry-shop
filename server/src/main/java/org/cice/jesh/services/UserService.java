@@ -68,7 +68,7 @@ public class UserService {
     @DELETE
     @Path("{id}")
     @AuthenticationFilter.AuthenticationFilterImpl
-    public Response updateUser(@PathParam("id") String id) throws Exception {
+    public Response deleteUser(@PathParam("id") String id) throws Exception {
 
         Map<Object, Object> result = new HashMap<>(userManager.delete(id));
         String responseJSON = new Gson().toJson(result.get("response"));

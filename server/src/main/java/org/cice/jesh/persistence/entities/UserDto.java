@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "user")
 public class UserDto implements Serializable {
 
-    private static final long serialVersionUID = 144585071807476496L;
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

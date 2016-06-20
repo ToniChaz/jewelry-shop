@@ -38,7 +38,7 @@ public class ProductManager {
         } else {
 
             Integer productId = ParserUtil.stringToInteger(id);
-            ProductDto originalProduct = getProduct(productId);
+            ProductDto originalProduct = getProductById(productId);
             
             if (originalProduct == null) {
                 result.put("statusCode", 404);
@@ -119,7 +119,7 @@ public class ProductManager {
         } else {
 
             Integer productId = ParserUtil.stringToInteger(id);
-            ProductDto originalProduct = getProduct(productId);
+            ProductDto originalProduct = getProductById(productId);
 
             if (originalProduct == null) {
                 result.put("statusCode", 404);
@@ -137,7 +137,7 @@ public class ProductManager {
 
     }
 
-    public ProductDto getProduct(Integer id) {
+    public ProductDto getProductById(Integer id) {
         return productDaoImpl.getProduct(id);
     }
 }

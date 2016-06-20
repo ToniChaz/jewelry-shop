@@ -1,10 +1,14 @@
 package org.cice.jesh.persistence.entities;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Toni
  */
-public class LoginCredentials {
+public class LoginCredentials implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     
     private String email;
     private String password;

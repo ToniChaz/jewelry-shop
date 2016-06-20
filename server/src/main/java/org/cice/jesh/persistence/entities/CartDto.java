@@ -1,5 +1,6 @@
 package org.cice.jesh.persistence.entities;
 
+import java.io.Serializable;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
@@ -17,7 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cart")
 @Access(value= AccessType.FIELD)
-public class CartDto {
+public class CartDto implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
