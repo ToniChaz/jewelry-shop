@@ -81,8 +81,13 @@ public class AdministratorManager {
             result.put("statusCode", 400);
             result.put("response", "This email is already registered.");
         } else {
+
+            AdministratorDto administratorToReturn = administratorDaoImpl.create(administrator);
+
+            administratorToReturn.setPassword("");
+            
             result.put("statusCode", 200);
-            result.put("response", administratorDaoImpl.create(administrator));
+            result.put("response", administratorToReturn);
         }
 
         return result;
@@ -107,8 +112,12 @@ public class AdministratorManager {
 
             administrator.setId(administratorId);
 
+            AdministratorDto administratorToReturn = administratorDaoImpl.update(administrator);
+
+            administratorToReturn.setPassword("");
+
             result.put("statusCode", 200);
-            result.put("response", administratorDaoImpl.update(administrator));
+            result.put("response", administratorToReturn);
         }
 
         return result;

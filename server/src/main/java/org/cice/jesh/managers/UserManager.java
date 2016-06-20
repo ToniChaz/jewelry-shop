@@ -80,8 +80,12 @@ public class UserManager {
             result.put("statusCode", 400);
             result.put("response", "This email is already registered.");
         } else {
+            UserDto userToReturn = userDaoImpl.create(user);
+
+            userToReturn.setPassword("");
+
             result.put("statusCode", 200);
-            result.put("response", userDaoImpl.create(user));
+            result.put("response", userToReturn);
         }
 
         return result;
@@ -105,9 +109,13 @@ public class UserManager {
             }
             
             user.setId(userId);
-            
+
+            UserDto userToReturn = userDaoImpl.update(user);
+
+            userToReturn.setPassword("");
+
             result.put("statusCode", 200);
-            result.put("response", userDaoImpl.update(user));
+            result.put("response", userToReturn);
         }
 
         return result;

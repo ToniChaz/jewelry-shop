@@ -8,15 +8,15 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('MyCartCtrl', function ($scope, $rootScope, $routeParams, $location, Cart) {
+  .controller('MyCartCtrl', function ($scope, $rootScope, $location, Cart) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
-    if($routeParams.hasOwnProperty('cartId')){
-      Cart.get($routeParams.cartId).then(function (response) {
-        $rootScope.user.cart = response;
-      });
-    }
+    $rootScope.user.cart = {};
+
+    Cart.get($rootScope.userId).then(function (response) {
+      $rootScope.user.cart = response;
+    });
 
     /*-------------------------------------
      | Functions                          |

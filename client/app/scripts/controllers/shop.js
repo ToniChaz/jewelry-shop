@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('ShopCtrl', function ($scope, Product) {
+  .controller('ShopCtrl', function ($scope, $rootScope, Product, Cart) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -33,5 +33,11 @@ angular.module('jewelryShopApp')
       $scope.search = '';
       delete $scope.singleProduct;
     };
+
+    $scope.buy = function(productId){
+      Cart.update($rootScope.userId, productId).then(function(response){
+        $rootScope.user.cart = response;
+      });
+    }
 
   });

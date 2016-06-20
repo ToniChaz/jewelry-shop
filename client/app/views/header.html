@@ -15,8 +15,8 @@
           <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
           <li ng-class="{ active: isActive('/shop')}"><a href="#/shop">Shop</a></li>
           <li ng-class="{ active: isActive('/contact')}"><a ng-href="#/contact">Contact</a></li>
-          <li ng-if="isLogged" ng-class="{ active: isActive('/my-section')}"><a ng-href="#/my-section">My section</a></li>
-          <li ng-if="isLogged" ng-class="{ active: isActive('/my-cart')}"><a ng-href="#/my-cart">My cart</a></li>
+          <li ng-if="isLogged && !isAdministrator" ng-class="{ active: isActive('/my-section')}"><a ng-href="#/my-section">My section</a></li>
+          <li ng-if="isLogged && !isAdministrator" ng-class="{ active: isActive('/my-cart')}"><a ng-href="#/my-cart">My cart</a></li>
           <li ng-if="isAdministrator" class="dropdown">
             <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Admin <span class="caret"></span></a>
             <ul class="dropdown-menu">

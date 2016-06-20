@@ -1,66 +1,110 @@
 package org.cice.jesh.persistence.entities;
 
 import java.io.Serializable;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  * Created by toni on 20/04/16.
  */
 @Entity
 @Table(name = "cart")
-@Access(value= AccessType.FIELD)
+@Access(value = AccessType.FIELD)
 public class CartDto implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "cart_id")
-    private Integer cartId;
-
+    private int cartId;
+    @Column(name = "user_id")
+    private int userId;
     @Column(name = "total")
-    private Double total;
+    private double total;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "cart_product",
+            joinColumns = {
+                    @JoinColumn(name = "cart_id")},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "product_id")})
+    private List<ProductDto> products;
 
     public CartDto() {
     }
 
-    public CartDto(Integer cartId, Double total) {
-        this.cartId = cartId;
-        this.total = total;
+    public CartDto(List<ProductDto> products, int userId) {
+        this.products = products;
+        this.userId = userId;
+        this.total = calculateTotal();
     }
 
-    public CartDto(Double total) {
-        this.total = total;
+    public CartDto(List<ProductDto> products) {
+        this.total = calculateTotal();
+        this.products = products;
     }
 
-    public Integer getCartId() {
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getCartId() {
         return cartId;
     }
 
-    public void setCartId(Integer cartId) {
+    public void setCartId(int cartId) {
         this.cartId = cartId;
     }
 
-    public Double getTotal() {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public double getTotal() {
         return total;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setTotal() {
+        this.total = calculateTotal();
+    }
+
+    public List<ProductDto> getProductsList() {
+        return products;
+    }
+
+    public void setProductsList(List<ProductDto> products) {
+        this.products = products;
     }
 
     @Override
     public String toString() {
-        return "CartDto{" + "cartId=" + cartId + ", total=" + total + '}';
-    }    
-    
+        return "CartDto{" +
+                "cartId=" + cartId +
+                ", userId=" + userId +
+                ", total=" + total +
+                ", products=" + products +
+                '}';
+    }
+
+    private double calculateTotal(){
+
+        double result = 0.0;
+
+        for(ProductDto product: this.products){
+            result += product.getPrice();
+        }
+
+        return result;
+    }
+
+    public void addProduct(ProductDto product){
+        this.products.add(product);
+    }
+
 }

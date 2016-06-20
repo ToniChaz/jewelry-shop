@@ -103,7 +103,7 @@ public class AccessManager {
 
         if (existToken == null) {
             TokenDto newToken = new TokenDto();
-            newToken.setId(id);
+            newToken.setUserId(id);
             newToken.setToken(token);
             tokenDaoImpl.create(newToken);
         } else {

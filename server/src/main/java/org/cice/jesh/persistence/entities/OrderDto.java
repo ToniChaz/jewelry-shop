@@ -43,24 +43,24 @@ public class OrderDto implements Serializable {
                 @JoinColumn(name = "order_id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "product_id")})
-    private List<ProductDto> productsList;
+    private List<ProductDto> products;
 
     public OrderDto() {
     }
 
-    public OrderDto(int orderId, int userId, Date date, double total, List<ProductDto> productsList) {
+    public OrderDto(int orderId, int userId, Date date, double total, List<ProductDto> products) {
         this.orderId = orderId;
         this.userId = userId;
         this.date = date;
         this.total = total;
-        this.productsList = productsList;
+        this.products = products;
     }
 
-    public OrderDto(int userId, Date date, double total, List<ProductDto> productsList) {
+    public OrderDto(int userId, Date date, double total, List<ProductDto> products) {
         this.userId = userId;
         this.date = date;
         this.total = total;
-        this.productsList = productsList;
+        this.products = products;
     }
 
     public int getOrderId() {
@@ -96,16 +96,16 @@ public class OrderDto implements Serializable {
     }
 
     public List<ProductDto> getProductsList() {
-        return productsList;
+        return products;
     }
 
-    public void setProductsList(List<ProductDto> productsList) {
-        this.productsList = productsList;
+    public void setProductsList(List<ProductDto> products) {
+        this.products = products;
     }
 
     @Override
     public String toString() {
-        return "OrderDto{" + "orderId=" + orderId + ", userId=" + userId + ", date=" + date + ", total=" + total + ", productsList=" + productsList + '}';
+        return "OrderDto{" + "orderId=" + orderId + ", userId=" + userId + ", date=" + date + ", total=" + total + ", products=" + products + '}';
     }
     
     

@@ -37,12 +37,12 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
-    Cart.update = function (userId, cartData) {
+    Cart.update = function (userId, productId) {
 
       var request = {
         method: 'PUT',
         url: '/cart/' + userId,
-        data: cartData
+        data: productId
       };
       return Interceptor.call(request);
     };

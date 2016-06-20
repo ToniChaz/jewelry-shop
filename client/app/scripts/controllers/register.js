@@ -19,12 +19,12 @@ angular.module('jewelryShopApp')
     }
 
     $scope.register = function(registerData){
-      if(!registerData || !registerData.firstName || !registerData.surname || !registerData.email || !registerData.password || !registerData.address || !registerData.bankAccount){
+      if(!registerData || !registerData.name || !registerData.surname || !registerData.email || !registerData.password || !registerData.address || !registerData.bankAccount){
         $rootScope.$broadcast('alert', 'danger', 'All data is required to register as client or your e-mail is invalid.');
         return false;
       }
 
-      registerData.name = registerData.firstName;
+      delete registerData.terms;
 
       User.add(registerData).then(function(response){
         Access.login(response).then(function(){

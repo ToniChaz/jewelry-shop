@@ -48,6 +48,9 @@ angular.module('jewelryShopApp')
 
     User.update = function (userId, userData) {
 
+      if (userData.password === "") {
+        delete userData.password;
+      }
       delete userData.index;
 
       var request = {

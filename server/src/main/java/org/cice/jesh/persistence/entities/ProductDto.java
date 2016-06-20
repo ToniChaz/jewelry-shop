@@ -32,27 +32,32 @@ public class ProductDto implements Serializable {
     @Column(name = "category")
     private String category;
     
-    @ManyToMany(mappedBy="productsList")
-    private List<OrderDto> ordersList;
+//    @ManyToMany(mappedBy="orderProductsList")
+//    private List<OrderDto> ordersList;
+//
+//    @ManyToMany(mappedBy="cartProductsList")
+//    private List<CartDto> cartList;
 
     public ProductDto() {
     }
 
-    public ProductDto(Integer id, String name, Double price, Integer quantity, String category, List<OrderDto> ordersList) {
+    public ProductDto(Integer id, String name, Double price, Integer quantity, String category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.ordersList = ordersList;
     }
 
-    public ProductDto(String name, Double price, Integer quantity, String category, List<OrderDto> ordersList) {
+    public ProductDto(String name, Double price, Integer quantity, String category) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
-        this.ordersList = ordersList;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public Integer getId() {
@@ -95,7 +100,7 @@ public class ProductDto implements Serializable {
         this.category = category;
     }
 
-    public List<OrderDto> getOrdersList() {
+    /*public List<OrderDto> getOrdersList() {
         return ordersList;
     }
 
@@ -103,9 +108,22 @@ public class ProductDto implements Serializable {
         this.ordersList = ordersList;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDto{" + "id=" + id + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", category=" + category + ", ordersList=" + ordersList + '}';
+    public List<CartDto> getCartList() {
+        return cartList;
     }
 
+    public void setCartList(List<CartDto> cartList) {
+        this.cartList = cartList;
+    }*/
+
+    @Override
+    public String toString() {
+        return "ProductDto{" +
+                "category='" + category + '\'' +
+                ", id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

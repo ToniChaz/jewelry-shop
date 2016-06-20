@@ -18,6 +18,7 @@ import org.cice.jesh.persistence.entities.OrderDto;
 /**
  * Created by toni on 20/04/16.
  */
+@Path("/order")
 public class OrderService {
     
     OrderManager orderManager = new OrderManager();
