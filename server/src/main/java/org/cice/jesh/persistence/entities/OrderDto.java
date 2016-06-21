@@ -3,24 +3,13 @@ package org.cice.jesh.persistence.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by toni on 20/04/16.
  */
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Access(value = AccessType.FIELD)
 public class OrderDto implements Serializable {
 
@@ -37,10 +26,10 @@ public class OrderDto implements Serializable {
     @Column(name = "total")
     private double total;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "order_product",
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @JoinTable(name = "orders_product",
             joinColumns = {
-                @JoinColumn(name = "order_id")},
+                @JoinColumn(name = "orders_id")},
             inverseJoinColumns = {
                 @JoinColumn(name = "product_id")})
     private List<ProductDto> products;
@@ -48,18 +37,18 @@ public class OrderDto implements Serializable {
     public OrderDto() {
     }
 
-    public OrderDto(int orderId, int userId, Date date, double total, List<ProductDto> products) {
+    public OrderDto(int orderId, int userId, List<ProductDto> products) {
         this.orderId = orderId;
         this.userId = userId;
-        this.date = date;
-        this.total = total;
+        this.date = setOrderDate();
+        this.total = calculateTotal();
         this.products = products;
     }
 
-    public OrderDto(int userId, Date date, double total, List<ProductDto> products) {
+    public OrderDto(int userId, List<ProductDto> products) {
         this.userId = userId;
-        this.date = date;
-        this.total = total;
+        this.date = setOrderDate();
+        this.total = calculateTotal();
         this.products = products;
     }
 
@@ -83,16 +72,16 @@ public class OrderDto implements Serializable {
         return date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate() {
+        this.date = setOrderDate();
     }
 
     public double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
+    public void setTotal() {
+        this.total = calculateTotal();
     }
 
     public List<ProductDto> getProductsList() {
@@ -108,6 +97,19 @@ public class OrderDto implements Serializable {
         return "OrderDto{" + "orderId=" + orderId + ", userId=" + userId + ", date=" + date + ", total=" + total + ", products=" + products + '}';
     }
     
-    
+    private Date setOrderDate(){
+        return new Date();
+    }
+
+    private double calculateTotal(){
+
+        double result = 0.0;
+
+        for(ProductDto product: this.products){
+            result += product.getPrice();
+        }
+
+        return result;
+    }
 
 }

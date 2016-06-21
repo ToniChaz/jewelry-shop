@@ -37,7 +37,7 @@ angular.module('jewelryShopApp')
           break;
         }
       }
-      Cart.update($rootScope.userId, $rootScope.user.cart).then(function(response){
+      Cart.removeProductFromCart($rootScope.userId, product.id).then(function(response){
         $rootScope.$broadcast('alert', 'success', 'Your cart has been updated successfully.');
         $rootScope.user.cart = response;
       });
@@ -45,9 +45,10 @@ angular.module('jewelryShopApp')
     };
 
     $scope.pay = function(){
-      Cart.delete($rootScope.userId).then(function(){
+      Cart.transactionComplete($rootScope.userId).then(function(response){
         $rootScope.$broadcast('alert', 'success', 'Your order has been send successfully.');
         $rootScope.user.cart = {};
+        $rootScope.user.orders.put(response);
       });
     };
     /*-------------------------------------

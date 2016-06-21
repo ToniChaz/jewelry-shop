@@ -91,6 +91,7 @@ angular
 
     function initData(){
       $rootScope.user = {};
+      $rootScope.user.orders = [];
       $rootScope.userId = '';
       $rootScope.accessToken = '';
       $rootScope.isLogged = false;

@@ -38,6 +38,6 @@ angular.module('jewelryShopApp')
       Cart.update($rootScope.userId, productId).then(function(response){
         $rootScope.user.cart = response;
       });
-    }
+    };
 
   });

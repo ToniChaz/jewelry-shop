@@ -4,6 +4,7 @@ import org.cice.jesh.utils.ConnectionUtil;
 import org.hibernate.*;
 import org.hibernate.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Created by toni on 20/04/16.
  */
+@SuppressWarnings (value="unchecked")
 public abstract class AbstractFactory<DtoType> {
     
     static final Logger logger = LogManager.getLogger(AbstractFactory.class.getName());
@@ -21,15 +23,16 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected List<DtoType> findAll() {
-        
+
         Session session = ConnectionUtil.getSession();
-        List<DtoType> arrayList = null;        
+        List<DtoType> arrayList = null;
         logger.info("Find all from: " + dtoType.getSimpleName() + " class");
         
         try {
 
             Query query = session.createQuery("FROM " + dtoType.getSimpleName());
             arrayList = query.list();
+
 
         } catch (HibernateException e) {
             logger.error(e.getMessage());
@@ -43,7 +46,7 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType get(Integer id) {
-        
+
         Session session = ConnectionUtil.getSession();
         DtoType newDto = null;
         
@@ -62,7 +65,7 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType create(DtoType dto) {
-        
+
         Session session = ConnectionUtil.getSession();
         Transaction tx = null;
 
@@ -88,7 +91,7 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType update(DtoType dto) {
-        
+
         Session session = ConnectionUtil.getSession();
         Transaction tx = null;
 
@@ -113,7 +116,7 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected void delete(DtoType dto) {
-        
+
         Session session = ConnectionUtil.getSession();
         Transaction tx = null;
 
@@ -136,30 +139,81 @@ public abstract class AbstractFactory<DtoType> {
     }
 
     protected DtoType findByColumnName(String columnToSearch, String valueToSearch) {
-        
-        Session session = ConnectionUtil.getSession();        
-        
-        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :str").setString("str", valueToSearch);
-        DtoType queryDtoType = (DtoType) query.uniqueResult();
-        
-        return queryDtoType;
+
+        Session session = ConnectionUtil.getSession();
+        DtoType result = null;
+
+        try {
+            Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :str").setString("str", valueToSearch);
+            result = (DtoType) query.uniqueResult();
+
+        } catch (HibernateException e) {
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+
+        return result;
     }
     
     protected DtoType findByColumnName(String columnToSearch, int valueToSearch) {
-        
-        Session session = ConnectionUtil.getSession();        
-        
-        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :int").setInteger("int", valueToSearch);
-        DtoType queryDtoType = (DtoType) query.uniqueResult();
-        
-        return queryDtoType;
+
+        Session session = ConnectionUtil.getSession();
+        DtoType result = null;
+
+        try {
+            Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :int").setInteger("int", valueToSearch);
+            result = (DtoType) query.uniqueResult();
+
+        } catch (HibernateException e) {
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+
+        return result;
     }
 
-    protected List<DtoType> find(String columnToSearch, String valueToSearch){        
-        
+    protected List<DtoType> findListByString(String columnToSearch, String valueToSearch){
+
         Session session = ConnectionUtil.getSession();
-        Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " LIKE  :str").setString("str", "%"+valueToSearch+"%");
-        return query.list();
+        List<DtoType> result = null;
+
+        try {
+            Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " LIKE  :str").setString("str", "%"+valueToSearch+"%");
+            result = query.list();
+
+        } catch (HibernateException e) {
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    protected List<DtoType> findListByInteger(String columnToSearch, int valueToSearch){
+
+        Session session = ConnectionUtil.getSession();
+        List<DtoType> result = null;
+
+        try {
+            Query query = session.createQuery("FROM " + dtoType.getSimpleName() + " WHERE " + columnToSearch + " =  :int").setInteger("int", valueToSearch);
+            result = query.list();
+
+        } catch (HibernateException e) {
+            logger.error(e.getMessage());
+            e.getMessage();
+        } finally {
+            session.close();
+        }
+
+        return result;
     }
 
 }

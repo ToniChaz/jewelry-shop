@@ -24,7 +24,7 @@ public class CartDto implements Serializable {
     @Column(name = "total")
     private double total;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "cart_product",
             joinColumns = {
                     @JoinColumn(name = "cart_id")},
@@ -105,6 +105,16 @@ public class CartDto implements Serializable {
 
     public void addProduct(ProductDto product){
         this.products.add(product);
+    }
+
+    public void removeProduct(ProductDto productToRemove){
+        List<ProductDto> productsList = this.products;
+        for (int i = 0; i < productsList.size(); i++) {
+            ProductDto product = productsList.get(i);
+            if (productToRemove.getId().equals(product.getId())) {
+                this.products.remove(productToRemove);
+            }
+        }
     }
 
 }

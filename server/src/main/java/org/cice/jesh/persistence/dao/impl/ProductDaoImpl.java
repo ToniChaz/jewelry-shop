@@ -28,7 +28,7 @@ public class ProductDaoImpl extends AbstractFactory<ProductDto> implements Produ
     
     @Override
     public List<ProductDto> findProduct(String columnToSearch, String valueToSearch) {
-        return super.find(columnToSearch, valueToSearch);
+        return super.findListByString(columnToSearch, valueToSearch);
     }
 
     @Override

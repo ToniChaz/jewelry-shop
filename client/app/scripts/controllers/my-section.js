@@ -27,7 +27,7 @@ angular.module('jewelryShopApp')
       if (!updateData || !updateData.name || !updateData.surname || !updateData.email || !updateData.address || !updateData.bankAccount) {
         $rootScope.$broadcast('alert', 'danger', 'All data is required to register as client or your e-mail is invalid.');
         return false;
-      }     
+      }
 
       User.update($rootScope.userId, updateData).then(function (response) {
         angular.extend($rootScope.user, response);

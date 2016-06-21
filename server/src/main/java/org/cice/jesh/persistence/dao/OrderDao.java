@@ -8,15 +8,7 @@ import org.cice.jesh.persistence.entities.OrderDto;
  */
 public interface OrderDao {
     
-    List<OrderDto> findAll();
-
-    OrderDto getOrder(Integer orderId);
+    List<OrderDto> findAll(String columnToSearch, int valueToSearch);
 
     OrderDto create(OrderDto order);
-
-    OrderDto update(OrderDto order);
-
-    void delete(OrderDto order);
-
-    OrderDto exist(String columnToSearch, String valueToSearch);
 }

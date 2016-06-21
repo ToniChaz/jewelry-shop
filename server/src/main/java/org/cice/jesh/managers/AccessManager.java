@@ -41,10 +41,13 @@ public class AccessManager {
                 result.put("response", "User not exist.");
             } else if (currentAdministrator != null && currentAdministrator.getPassword().equals(loginCredentials.getPassword())) {
                 
-                Map response = new HashMap();
+                Map<String, Object> response = new HashMap<>();
 
-                response.put("isLogged", true);
-                response.put("isAdministrator", true);
+                final boolean isLogged = true;
+                final boolean isAdministrator = true;
+
+                response.put("isLogged", isLogged);
+                response.put("isAdministrator", isAdministrator);
                 response.put("userId", currentAdministrator.getId());
                 response.put("accessToken", generateAccessToken(currentAdministrator.getId()));
                 
@@ -52,11 +55,14 @@ public class AccessManager {
                 result.put("response", response);                
                 
             } else if (currentUser != null && currentUser.getPassword().equals(loginCredentials.getPassword())) {
-                
-                Map response = new HashMap();
 
-                response.put("isLogged", true);
-                response.put("isAdministrator", false);
+                Map<String, Object> response = new HashMap<>();
+
+                final boolean isLogged = true;
+                final boolean isAdministrator = false;
+
+                response.put("isLogged", isLogged);
+                response.put("isAdministrator", isAdministrator);
                 response.put("userId", currentUser.getId());
                 response.put("accessToken", generateAccessToken(currentUser.getId()));
                 
@@ -75,7 +81,7 @@ public class AccessManager {
     public Map<Object, Object> logout(String accessToken) {
 
         Map<Object, Object> result = new HashMap<>();
-        Map response = new HashMap();
+        Map<String, Boolean> response = new HashMap<>();
 
         response.put("isLogged", deleteToken(accessToken));
         

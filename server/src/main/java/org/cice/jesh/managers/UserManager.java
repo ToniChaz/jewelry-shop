@@ -15,6 +15,7 @@ import java.util.Map;
 public class UserManager {
 
     UserDaoImpl userDaoImpl = new UserDaoImpl();
+    OrderManager orderManager = new OrderManager();
 
     public UserManager() {
 
@@ -59,7 +60,10 @@ public class UserManager {
                 result.put("statusCode", 404);
                 result.put("response", "User not found");
             } else {
+
                 originalUser.setPassword("");
+                originalUser.setOrders(orderManager.getAllOrders(userId));
+
                 result.put("statusCode", 200);
                 result.put("response", originalUser);
             }
@@ -72,7 +76,7 @@ public class UserManager {
 
         Map<Object, Object> result = new HashMap<>();
 
-        if (user == null || user.getName() == null || user.getSurname() == null || user.getEmail() == null || user.getAddress() == null || user.getbankAccount() == null || user.getPassword() == null) {
+        if (user == null || user.getName() == null || user.getSurname() == null || user.getEmail() == null || user.getAddress() == null || user.getBankAccount() == null || user.getPassword() == null) {
 
             result.put("statusCode", 400);
             result.put("response", "All user data is required");
@@ -95,7 +99,7 @@ public class UserManager {
 
         Map<Object, Object> result = new HashMap<>();
 
-        if (id == null || user == null || user.getName() == null || user.getSurname() == null || user.getEmail() == null || user.getAddress() == null || user.getbankAccount() == null) {
+        if (id == null || user == null || user.getName() == null || user.getSurname() == null || user.getEmail() == null || user.getAddress() == null || user.getBankAccount() == null) {
 
             result.put("statusCode", 400);
             result.put("response", "All user data is required, except password");

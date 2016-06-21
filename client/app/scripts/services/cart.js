@@ -27,16 +27,6 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
-    Cart.create = function (userId, cartData) {
-
-      var request = {
-        method: 'POST',
-        url: '/cart/' + userId,
-        data: cartData
-      };
-      return Interceptor.call(request);
-    };
-
     Cart.update = function (userId, productId) {
 
       var request = {
@@ -47,11 +37,21 @@ angular.module('jewelryShopApp')
       return Interceptor.call(request);
     };
 
-    Cart.delete = function (userId) {
+    Cart.removeProductFromCart = function (userId, productId) {
 
       var request = {
-        method: 'DELETE',
-        url: '/cart/' + userId
+        method: 'PUT',
+        url: '/cart/remove/' + userId,
+        data: productId
+      };
+      return Interceptor.call(request);
+    };
+
+    Cart.transactionComplete = function (userId) {
+
+      var request = {
+        method: 'PUT',
+        url: '/cart/complete/' + userId
       };
       return Interceptor.call(request);
     };

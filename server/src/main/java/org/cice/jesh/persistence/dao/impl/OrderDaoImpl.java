@@ -17,13 +17,8 @@ public class OrderDaoImpl extends AbstractFactory<OrderDto> implements OrderDao 
     }
 
     @Override
-    public List<OrderDto> findAll() {
-        return super.findAll();
-    }
-
-    @Override
-    public OrderDto getOrder(Integer orderId) {
-        return super.get(orderId);
+    public List<OrderDto> findAll(String columnToSearch, int valueToSearch) {
+        return super.findListByInteger(columnToSearch, valueToSearch);
     }
 
     @Override
@@ -31,18 +26,4 @@ public class OrderDaoImpl extends AbstractFactory<OrderDto> implements OrderDao 
         return super.create(order);
     }
 
-    @Override
-    public OrderDto update(OrderDto order) {
-        return super.update(order);
-    }
-
-    @Override
-    public void delete(OrderDto order) {
-       super.delete(order);
-    }
-
-    @Override
-    public OrderDto exist(String columnToSearch, String valueToSearch) {
-        return super.findByColumnName(columnToSearch, valueToSearch);
-    }
 }

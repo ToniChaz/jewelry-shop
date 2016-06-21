@@ -2,6 +2,7 @@ package org.cice.jesh.persistence.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by toni on 20/04/16.
@@ -29,11 +30,14 @@ public class UserDto implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Transient
+    private List<OrderDto> orders;
+
 
     public UserDto() {
     }
 
-    public UserDto(Integer id, String name, String surname, String email, String bankAccount, String address, String password) {
+    public UserDto(Integer id, String name, String surname, String email, String bankAccount, String address, String password, List<OrderDto> orders) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -41,6 +45,7 @@ public class UserDto implements Serializable {
         this.bankAccount = bankAccount;
         this.address = address;
         this.password = password;
+        this.orders = orders;
     }
 
     public UserDto(String name, String surname, String email, String bankAccount, String address, String password) {
@@ -50,6 +55,16 @@ public class UserDto implements Serializable {
         this.bankAccount = bankAccount;
         this.address = address;
         this.password = password;
+    }
+
+    public UserDto(String name, String surname, String email, String bankAccount, String address, String password, List<OrderDto> orders) {
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.bankAccount = bankAccount;
+        this.address = address;
+        this.password = password;
+        this.orders = orders;
     }
 
     public Integer getId() {
@@ -84,14 +99,6 @@ public class UserDto implements Serializable {
         this.email = email;
     }
 
-    public String getbankAccount() {
-        return bankAccount;
-    }
-
-    public void setbankAccount(String bankAccount) {
-        this.bankAccount = bankAccount;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -106,6 +113,22 @@ public class UserDto implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<OrderDto> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderDto> orders) {
+        this.orders = orders;
+    }
+
+    public String getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(String bankAccount) {
+        this.bankAccount = bankAccount;
     }
 
     @Override

@@ -41,6 +41,32 @@ public class CartService {
 
         return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
     }
+
+    @PUT
+    @Path("/remove/{id}")
+    @Produces("application/json")
+    @Consumes("application/json")
+    @AuthenticationFilter.AuthenticationFilterImpl
+    public Response removeProductFromCart(@PathParam("id") String id, String productId) throws Exception {
+
+        Map<Object, Object> result = new HashMap<>(cartManager.removeProductFromCart(id, productId));
+        String responseJSON = new Gson().toJson(result.get("response"));
+
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
+    }
+
+    @PUT
+    @Path("/complete/{id}")
+    @Produces("application/json")
+    @Consumes("application/json")
+    @AuthenticationFilter.AuthenticationFilterImpl
+    public Response transactionComplete(@PathParam("id") String id) throws Exception {
+
+        Map<Object, Object> result = new HashMap<>(cartManager.transactionComplete(id));
+        String responseJSON = new Gson().toJson(result.get("response"));
+
+        return Response.status((Integer) result.get("statusCode")).entity(responseJSON).build();
+    }
     
     
 }

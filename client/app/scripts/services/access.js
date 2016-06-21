@@ -48,7 +48,7 @@ angular.module('jewelryShopApp')
 
 
       },function(response){
-          $rootScope.$broadcast('alert', 'danger', response.status + " - " + response.data);
+          $rootScope.$broadcast('alert', 'danger', response.status + ' - ' + response.data);
       });
     };
 
