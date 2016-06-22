@@ -172,7 +172,15 @@ ul.searchresultspopup strong {
   max-height: 475px;
   overflow: auto;
 }
-
+.my-section .order-detail {
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  margin: -25px 25px 0;
+}
+.my-section .order-detail-product {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 15px;
+}
 /* my-cart */
 .my-cart .total .btn {
   margin-bottom: 25px;

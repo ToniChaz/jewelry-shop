@@ -27,12 +27,14 @@ angular.module('jewelryShopApp')
 
     $scope.addUser = function (data) {
       User.add(data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The user has been successfully deleted.');
         $scope.users.push(response);
       });
     };
 
     $scope.editUser = function (data) {
       User.update(data.id, data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The user has been successfully deleted.');
         $scope.users.splice(data.index, 1, response);
 
       });
@@ -40,6 +42,7 @@ angular.module('jewelryShopApp')
 
     $scope.deleteUser = function (data) {
       User.delete(data.id).then(function () {
+        $rootScope.$broadcast('alert', 'success', 'The user has been successfully deleted.');
         $scope.users.splice(data.index, 1);
       });
     };

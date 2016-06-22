@@ -27,19 +27,21 @@ angular.module('jewelryShopApp')
 
     $scope.addProduct = function (data) {
       Product.add(data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The product has been successfully deleted.');
         $scope.products.push(response);
       });
     };
 
     $scope.editProduct = function (data) {
       Product.update(data.id, data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The product has been successfully deleted.');
         $scope.products.splice(data.index, 1, response);
-
       });
     };
 
     $scope.deleteProduct = function (data) {
       Product.delete(data.id).then(function () {
+        $rootScope.$broadcast('alert', 'success', 'The product has been successfully deleted.');
         $scope.products.splice(data.index, 1);
       });
     };

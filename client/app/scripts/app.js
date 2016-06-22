@@ -91,7 +91,8 @@ angular
 
     function initData(){
       $rootScope.user = {};
-      $rootScope.user.orders = [];
+      $rootScope.user.cart = {};
+      $rootScope.user.orders = {};
       $rootScope.userId = '';
       $rootScope.accessToken = '';
       $rootScope.isLogged = false;
@@ -126,10 +127,6 @@ angular
       delete $sessionStorage.session;
     }
 
-    function setUserToSession(userData){
-      $sessionStorage.session.user = userData;
-    }
-
     function setUserData(userData){
       $rootScope.user = userData;
     }
@@ -140,7 +137,6 @@ angular
     $rootScope.setSession = setSession;
     $rootScope.recoverSession = recoverSession;
     $rootScope.cleanSession = cleanSession;
-    $rootScope.setUserToSession = setUserToSession;
     $rootScope.setUserData = setUserData;
 
     initData();

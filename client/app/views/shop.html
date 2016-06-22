@@ -36,6 +36,7 @@
       <div class="col-md-3">
         <button ng-if="isLogged && !isAdministrator" type="button" ng-click="buy(product.id)" class="btn btn-lg btn-success btn-block">Buy</button>
         <p class="text-center" ng-if="!isLogged">To buy you need to be <a href="#/register">registered</a> or <a href="#/login">logged</a></p>
+        <p class="text-center" ng-if="isLogged && isAdministrator">The administrators can't buy</p>
       </div>
       <hr>
     </div>

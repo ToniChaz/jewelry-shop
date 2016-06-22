@@ -1,5 +1,5 @@
 <div class="my-cart">
-  <div ng-if="user.cart.products.length === 0"><h1>You dont have products in your cart.</h1></div>
+  <div ng-if="user.cart.products.length === 0 || user.cart.products === undefined"><h1>You dont have products in your cart.</h1></div>
   <div ng-if="user.cart.products.length > 0">
     <div ng-repeat="product in user.cart.products">
       <div class="row">

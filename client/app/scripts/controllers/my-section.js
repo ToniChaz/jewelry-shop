@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('MySectionCtrl', function ($scope, $rootScope, $location, User) {
+  .controller('MySectionCtrl', function ($scope, $rootScope, $location, User, Cart) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -20,6 +20,11 @@ angular.module('jewelryShopApp')
     function isLogged() {
       if (!$rootScope.isLogged) {
         $location.path('/login');
+      } else if ($rootScope.user === undefined) {
+        User.get($rootScope.userId).then(function (response) {
+          $rootScope.setUserData(response);
+          $scope.updateData = $rootScope.user;
+        });
       }
     }
 
@@ -32,6 +37,13 @@ angular.module('jewelryShopApp')
       User.update($rootScope.userId, updateData).then(function (response) {
         angular.extend($rootScope.user, response);
         $rootScope.$broadcast('alert', 'success', 'Your data has been updated successfully.');
+      });
+    };
+
+    $scope.buy = function(productId){
+      Cart.update($rootScope.userId, productId).then(function(response){
+        $rootScope.$broadcast('alert', 'success', 'The product has been added in the cart correctly');
+        $rootScope.user.cart = response;
       });
     };
 

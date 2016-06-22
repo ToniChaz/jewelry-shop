@@ -27,7 +27,7 @@ public class AuthenticationFilter implements ContainerRequestFilter {
     static final Logger logger = LogManager.getLogger(AuthenticationFilter.class.getName());
 
     private final TokenDaoImpl tokenDaoImpl = new TokenDaoImpl();
-    
+
     @NameBinding
     @Target({ElementType.METHOD, ElementType.TYPE})
     @Retention(RetentionPolicy.RUNTIME)

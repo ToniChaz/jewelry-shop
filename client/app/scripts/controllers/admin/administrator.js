@@ -27,12 +27,14 @@ angular.module('jewelryShopApp')
 
     $scope.addAdministrator = function (data) {
       Administrator.add(data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The administrator has been successfully added.');
         $scope.administrators.push(response);
       });
     };
 
     $scope.editAdministrator = function (data) {
       Administrator.update(data.id, data).then(function (response) {
+        $rootScope.$broadcast('alert', 'success', 'The administrator has been successfully edited.');
         $scope.administrators.splice(data.index, 1, response);
 
       });
@@ -40,6 +42,7 @@ angular.module('jewelryShopApp')
 
     $scope.deleteAdministrator = function (data) {
       Administrator.delete(data.id).then(function () {
+        $rootScope.$broadcast('alert', 'success', 'The administrator has been successfully deleted.');
         $scope.administrators.splice(data.index, 1);
       });
     };

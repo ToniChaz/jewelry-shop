@@ -26,7 +26,6 @@ public class ConnectionUtil {
     }
 
     public static Session getSession() {
-        logger.info("---------------- SESSION OPEN -------------");
         return sessionFactory.openSession();
     }
 }

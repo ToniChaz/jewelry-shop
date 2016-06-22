@@ -36,6 +36,7 @@ angular.module('jewelryShopApp')
 
     $scope.buy = function(productId){
       Cart.update($rootScope.userId, productId).then(function(response){
+        $rootScope.$broadcast('alert', 'success', 'The product has been added in the cart correctly');
         $rootScope.user.cart = response;
       });
     };

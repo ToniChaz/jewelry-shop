@@ -37,18 +37,14 @@ angular.module('jewelryShopApp')
         if ($rootScope.isAdministrator){
             Administrator.get($rootScope.userId).then(function(response){
                 $rootScope.setUserData(response);
-                //$rootScope.setUserToSession(response);
               });
         } else {
             User.get($rootScope.userId).then(function(response){
                 $rootScope.setUserData(response);
-                //$rootScope.setUserToSession(response);
               });
         }
 
 
-      },function(response){
-          $rootScope.$broadcast('alert', 'danger', response.status + ' - ' + response.data);
       });
     };
 

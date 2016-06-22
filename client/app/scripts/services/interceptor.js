@@ -20,6 +20,7 @@ angular.module('jewelryShopApp')
      | Functions                          |
      -------------------------------------*/
     function errorInterceptor(response) {
+      $rootScope.$broadcast('alert', 'danger', 'An error occurred. Please try again later. Reason: ' + response.status + ' - ' + response.data);
       $log.error('Service Error: ', response);
     }
 
