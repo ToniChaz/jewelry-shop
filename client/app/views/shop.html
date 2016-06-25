@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <p ng-if="isLogged && !isAdministrator">You have <b>{{user.cart.products.length || 0}}</b> products in your <a href="#/my-cart">cart</a></p>
+      <p ng-if="isLogged && !isAdministrator">You have <b>{{user.cart.cartProducts.length || 0}}</b> products in your <a href="#/my-cart">cart</a></p>
     </div>
   </div>
   <div ng-if="!singleProduct" ng-repeat="product in products">

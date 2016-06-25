@@ -2,13 +2,7 @@ package org.cice.jesh.persistence.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by toni on 20/04/16.
@@ -31,12 +25,14 @@ public class ProductDto implements Serializable {
     private Integer quantity;
     @Column(name = "category")
     private String category;
-    
-//    @ManyToMany(mappedBy="orderProductsList")
-//    private List<OrderDto> ordersList;
-//
-//    @ManyToMany(mappedBy="cartProductsList")
-//    private List<CartDto> cartList;
+
+    @Transient
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy="orderProducts", cascade = CascadeType.ALL)
+    private List<OrderDto> ordersList;
+
+    @Transient
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy="cartProducts", cascade = CascadeType.ALL)
+    private List<CartDto> cartList;
 
     public ProductDto() {
     }
@@ -54,6 +50,15 @@ public class ProductDto implements Serializable {
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+    }
+
+    public ProductDto(String name, Double price, Integer quantity, String category, List<OrderDto> ordersList, List<CartDto> cartList) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+        this.ordersList = ordersList;
+        this.cartList = cartList;
     }
 
     public static long getSerialVersionUID() {
@@ -100,7 +105,7 @@ public class ProductDto implements Serializable {
         this.category = category;
     }
 
-    /*public List<OrderDto> getOrdersList() {
+    public List<OrderDto> getOrdersList() {
         return ordersList;
     }
 
@@ -114,7 +119,7 @@ public class ProductDto implements Serializable {
 
     public void setCartList(List<CartDto> cartList) {
         this.cartList = cartList;
-    }*/
+    }
 
     @Override
     public String toString() {
@@ -125,5 +130,30 @@ public class ProductDto implements Serializable {
                 ", price=" + price +
                 ", quantity=" + quantity +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductDto)) return false;
+
+        ProductDto that = (ProductDto) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getName().equals(that.getName())) return false;
+        if (!getPrice().equals(that.getPrice())) return false;
+        if (!getQuantity().equals(that.getQuantity())) return false;
+        return getCategory().equals(that.getCategory());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getPrice().hashCode();
+        result = 31 * result + getQuantity().hashCode();
+        result = 31 * result + getCategory().hashCode();
+        return result;
     }
 }

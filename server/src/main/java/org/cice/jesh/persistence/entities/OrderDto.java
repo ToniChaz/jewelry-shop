@@ -26,30 +26,30 @@ public class OrderDto implements Serializable {
     @Column(name = "total")
     private double total;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "orders_product",
             joinColumns = {
-                @JoinColumn(name = "orders_id")},
+                    @JoinColumn(name = "orders_id")},
             inverseJoinColumns = {
-                @JoinColumn(name = "product_id")})
-    private List<ProductDto> products;
+                    @JoinColumn(name = "product_id")})
+    private List<ProductDto> orderProducts;
 
     public OrderDto() {
     }
 
-    public OrderDto(int orderId, int userId, List<ProductDto> products) {
+    public OrderDto(int orderId, int userId, List<ProductDto> orderProducts) {
         this.orderId = orderId;
         this.userId = userId;
         this.date = setOrderDate();
         this.total = calculateTotal();
-        this.products = products;
+        this.orderProducts = orderProducts;
     }
 
-    public OrderDto(int userId, List<ProductDto> products) {
+    public OrderDto(int userId, List<ProductDto> orderProducts) {
         this.userId = userId;
         this.date = setOrderDate();
         this.total = calculateTotal();
-        this.products = products;
+        this.orderProducts = orderProducts;
     }
 
     public int getOrderId() {
@@ -85,31 +85,64 @@ public class OrderDto implements Serializable {
     }
 
     public List<ProductDto> getProductsList() {
-        return products;
+        return orderProducts;
     }
 
-    public void setProductsList(List<ProductDto> products) {
-        this.products = products;
+    public void setProductsList(List<ProductDto> orderProducts) {
+        this.orderProducts = orderProducts;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDto{" + "orderId=" + orderId + ", userId=" + userId + ", date=" + date + ", total=" + total + ", products=" + products + '}';
-    }
-    
-    private Date setOrderDate(){
+    private Date setOrderDate() {
         return new Date();
     }
 
-    private double calculateTotal(){
+    private double calculateTotal() {
 
         double result = 0.0;
 
-        for(ProductDto product: this.products){
+        for (ProductDto product : this.orderProducts) {
             result += product.getPrice();
         }
 
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "orderId=" + orderId +
+                ", userId=" + userId +
+                ", date=" + date +
+                ", total=" + total +
+                ", orderProducts=" + orderProducts +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OrderDto)) return false;
+
+        OrderDto orderDto = (OrderDto) o;
+
+        if (getOrderId() != orderDto.getOrderId()) return false;
+        if (getUserId() != orderDto.getUserId()) return false;
+        if (Double.compare(orderDto.getTotal(), getTotal()) != 0) return false;
+        if (!getDate().equals(orderDto.getDate())) return false;
+        return orderProducts.equals(orderDto.orderProducts);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getOrderId();
+        result = 31 * result + getUserId();
+        result = 31 * result + getDate().hashCode();
+        temp = Double.doubleToLongBits(getTotal());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + orderProducts.hashCode();
+        return result;
+    }
 }

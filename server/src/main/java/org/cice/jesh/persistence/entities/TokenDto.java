@@ -73,6 +73,26 @@ public class TokenDto implements Serializable {
     @Override
     public String toString() {
         return "TokenDto{" + "id=" + id + ", userId=" + userId + ", token=" + token + '}';
-    }    
-    
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TokenDto)) return false;
+
+        TokenDto tokenDto = (TokenDto) o;
+
+        if (!getId().equals(tokenDto.getId())) return false;
+        if (!getUserId().equals(tokenDto.getUserId())) return false;
+        return getToken().equals(tokenDto.getToken());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getUserId().hashCode();
+        result = 31 * result + getToken().hashCode();
+        return result;
+    }
 }

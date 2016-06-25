@@ -94,5 +94,29 @@ public class AdministratorDto implements Serializable{
     public String toString() {
         return "AdministratorDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password=" + password + '}';
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AdministratorDto)) return false;
+
+        AdministratorDto that = (AdministratorDto) o;
+
+        if (!getId().equals(that.getId())) return false;
+        if (!getName().equals(that.getName())) return false;
+        if (!getSurname().equals(that.getSurname())) return false;
+        if (!getEmail().equals(that.getEmail())) return false;
+        return getPassword().equals(that.getPassword());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        return result;
+    }
 }

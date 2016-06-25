@@ -41,6 +41,23 @@ public class LoginCredentials implements Serializable {
     public String toString() {
         return "LoginCredentials{" + "email=" + email + ", password=" + password + '}';
     }
-    
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LoginCredentials)) return false;
+
+        LoginCredentials that = (LoginCredentials) o;
+
+        if (!getEmail().equals(that.getEmail())) return false;
+        return getPassword().equals(that.getPassword());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getEmail().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        return result;
+    }
 }

@@ -77,7 +77,7 @@ angular
         }
       });
   })
-  .run(function ($rootScope, $sessionStorage) {
+  .run(function ($rootScope, $sessionStorage, User, Cart) {
 
     // Global variables
     $rootScope.hideHeaderFooter = false;
@@ -143,6 +143,16 @@ angular
 
     if($sessionStorage.session !== undefined){
       recoverSession();
+    }
+
+    if ($rootScope.isLogged && $rootScope.user === undefined) {
+      debugger
+      User.get($rootScope.userId).then(function (response) {
+        setUserData(response);
+        Cart.get($rootScope.userId).then(function (response) {
+          $rootScope.user.cart = response;
+        });
+      });
     }
 
   });

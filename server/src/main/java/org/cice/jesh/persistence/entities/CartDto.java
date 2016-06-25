@@ -24,26 +24,26 @@ public class CartDto implements Serializable {
     @Column(name = "total")
     private double total;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "cart_product",
             joinColumns = {
                     @JoinColumn(name = "cart_id")},
             inverseJoinColumns = {
                     @JoinColumn(name = "product_id")})
-    private List<ProductDto> products;
+    private List<ProductDto> cartProducts;
 
     public CartDto() {
     }
 
-    public CartDto(List<ProductDto> products, int userId) {
-        this.products = products;
+    public CartDto(List<ProductDto> cartProducts, int userId) {
+        this.cartProducts = cartProducts;
         this.userId = userId;
         this.total = calculateTotal();
     }
 
-    public CartDto(List<ProductDto> products) {
+    public CartDto(List<ProductDto> cartProducts) {
         this.total = calculateTotal();
-        this.products = products;
+        this.cartProducts = cartProducts;
     }
 
     public static long getSerialVersionUID() {
@@ -75,11 +75,30 @@ public class CartDto implements Serializable {
     }
 
     public List<ProductDto> getProductsList() {
-        return products;
+        return cartProducts;
     }
 
-    public void setProductsList(List<ProductDto> products) {
-        this.products = products;
+    public void setProductsList(List<ProductDto> cartProducts) {
+        this.cartProducts = cartProducts;
+    }
+
+    private double calculateTotal(){
+
+        double result = 0.0;
+
+        for(ProductDto product: this.cartProducts){
+            result += product.getPrice();
+        }
+
+        return result;
+    }
+
+    public void addProduct(ProductDto product){
+        this.cartProducts.add(product);
+    }
+
+    public boolean removeProduct(ProductDto productToRemove){
+        return this.cartProducts.remove(productToRemove);
     }
 
     @Override
@@ -88,33 +107,33 @@ public class CartDto implements Serializable {
                 "cartId=" + cartId +
                 ", userId=" + userId +
                 ", total=" + total +
-                ", products=" + products +
+                ", products=" + cartProducts +
                 '}';
     }
 
-    private double calculateTotal(){
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CartDto)) return false;
 
-        double result = 0.0;
+        CartDto cartDto = (CartDto) o;
 
-        for(ProductDto product: this.products){
-            result += product.getPrice();
-        }
+        if (getCartId() != cartDto.getCartId()) return false;
+        if (getUserId() != cartDto.getUserId()) return false;
+        if (Double.compare(cartDto.getTotal(), getTotal()) != 0) return false;
+        return cartProducts.equals(cartDto.cartProducts);
 
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getCartId();
+        result = 31 * result + getUserId();
+        temp = Double.doubleToLongBits(getTotal());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + cartProducts.hashCode();
         return result;
     }
-
-    public void addProduct(ProductDto product){
-        this.products.add(product);
-    }
-
-    public void removeProduct(ProductDto productToRemove){
-        List<ProductDto> productsList = this.products;
-        for (int i = 0; i < productsList.size(); i++) {
-            ProductDto product = productsList.get(i);
-            if (productToRemove.getId().equals(product.getId())) {
-                this.products.remove(productToRemove);
-            }
-        }
-    }
-
 }

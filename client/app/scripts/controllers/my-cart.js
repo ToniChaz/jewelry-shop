@@ -15,27 +15,14 @@ angular.module('jewelryShopApp')
     function isLogged() {
       if (!$rootScope.isLogged) {
         $location.path('/login');
-      } else if ($rootScope.user === undefined) {
-        User.get($rootScope.userId).then(function (response) {
-          $rootScope.setUserData(response);
-          $scope.updateData = $rootScope.user;
-          Cart.get($rootScope.userId).then(function (response) {
-            $rootScope.user.cart = response;
-          });
+      } else if (!$rootScope.user.cart){
+        Cart.get($rootScope.userId).then(function (response) {
+          $rootScope.user.cart = response;
         });
       }
     }
 
     $scope.delete = function (product) {
-
-      var userCart = $rootScope.user.cart;
-
-      for (var i = 0; i < userCart.products.length; i++) {
-        if (userCart.products[i].id === product.id) {
-          $rootScope.user.cart.products.splice(i, 1);
-          break;
-        }
-      }
       Cart.removeProductFromCart($rootScope.userId, product.id).then(function (response) {
         $rootScope.$broadcast('alert', 'success', 'Your cart has been updated successfully.');
         $rootScope.user.cart = response;

@@ -22,7 +22,7 @@ angular.module('jewelryShopApp')
 
       $timeout(function () {
         $scope.closeAlert($scope.alerts.length - 1);
-      }, 4000);
+      }, 5000);
     };
 
     $scope.closeAlert = function (index) {

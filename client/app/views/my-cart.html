@@ -1,7 +1,7 @@
 <div class="my-cart">
-  <div ng-if="user.cart.products.length === 0 || user.cart.products === undefined"><h1>You dont have products in your cart.</h1></div>
-  <div ng-if="user.cart.products.length > 0">
-    <div ng-repeat="product in user.cart.products">
+  <div ng-if="user.cart.cartProducts.length === 0 || user.cart.cartProducts === undefined"><h1>You dont have products in your cart.</h1></div>
+  <div ng-if="user.cart.cartProducts.length > 0">
+    <div ng-repeat="product in user.cart.cartProducts">
       <div class="row">
         <div class="col-md-3">
           <img src="http://lorempixel.com/200/200/nature/1" class="img-rounded">

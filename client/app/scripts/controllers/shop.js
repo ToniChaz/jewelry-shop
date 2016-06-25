@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('ShopCtrl', function ($scope, $rootScope, Product, Cart) {
+  .controller('ShopCtrl', function ($scope, $rootScope, Product, Cart, User) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/

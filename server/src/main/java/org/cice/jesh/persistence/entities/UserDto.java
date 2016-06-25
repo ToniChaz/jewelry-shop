@@ -136,4 +136,34 @@ public class UserDto implements Serializable {
         return "UserDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", bankAccount=" + bankAccount + ", address=" + address + ", password=" + password + '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserDto)) return false;
+
+        UserDto userDto = (UserDto) o;
+
+        if (!getId().equals(userDto.getId())) return false;
+        if (!getName().equals(userDto.getName())) return false;
+        if (!getSurname().equals(userDto.getSurname())) return false;
+        if (!getEmail().equals(userDto.getEmail())) return false;
+        if (!getBankAccount().equals(userDto.getBankAccount())) return false;
+        if (!getAddress().equals(userDto.getAddress())) return false;
+        if (!getPassword().equals(userDto.getPassword())) return false;
+        return getOrders().equals(userDto.getOrders());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getName().hashCode();
+        result = 31 * result + getSurname().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getBankAccount().hashCode();
+        result = 31 * result + getAddress().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getOrders().hashCode();
+        return result;
+    }
 }

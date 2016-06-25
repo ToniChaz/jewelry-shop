@@ -61,10 +61,10 @@ public class CartManager {
 
             Integer userId = ParserUtil.stringToInteger(id);
             Integer parsedProductId = ParserUtil.stringToInteger(productId);
-            CartDto originalCart = getCartByUserId(userId);
+            CartDto cart = getCartByUserId(userId);
             ProductDto product = productManager.getProductById(parsedProductId);
 
-            if (originalCart == null) {
+            if (cart == null) {
                 CartDto newCart = new CartDto();
                 List<ProductDto> productsList = new ArrayList<>();
                 productsList.add(product);
@@ -77,11 +77,11 @@ public class CartManager {
                 result.put("response", cartDaoImpl.create(newCart));
             } else {
 
-                originalCart.addProduct(product);
-                originalCart.setTotal();
+                cart.addProduct(product);
+                cart.setTotal();
 
                 result.put("statusCode", 200);
-                result.put("response", cartDaoImpl.update(originalCart));
+                result.put("response", cartDaoImpl.update(cart));
             }
 
 
@@ -102,17 +102,15 @@ public class CartManager {
 
             Integer userId = ParserUtil.stringToInteger(id);
             Integer parsedProductId = ParserUtil.stringToInteger(productId);
-            CartDto originalCart = getCartByUserId(userId);
+            CartDto cart = getCartByUserId(userId);
             ProductDto product = productManager.getProductById(parsedProductId);
 
+            if (cart.removeProduct(product)) {
 
-            if (originalCart.getProductsList().contains(product)) {
-
-                originalCart.removeProduct(product);
-                originalCart.setTotal();
+                cart.setTotal();
 
                 result.put("statusCode", 200);
-                result.put("response", cartDaoImpl.update(originalCart));
+                result.put("response", cartDaoImpl.update(cart));
             } else {
 
                 result.put("statusCode", 404);

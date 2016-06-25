@@ -10,21 +10,11 @@
 angular.module('jewelryShopApp')
   .controller('MySectionCtrl', function ($scope, $rootScope, $location, User, Cart) {
     /*-------------------------------------
-     | Variables                          |
-     -------------------------------------*/
-    $scope.updateData = $rootScope.user;
-
-    /*-------------------------------------
      | Functions                          |
      -------------------------------------*/
     function isLogged() {
       if (!$rootScope.isLogged) {
         $location.path('/login');
-      } else if ($rootScope.user === undefined) {
-        User.get($rootScope.userId).then(function (response) {
-          $rootScope.setUserData(response);
-          $scope.updateData = $rootScope.user;
-        });
       }
     }
 
@@ -34,14 +24,26 @@ angular.module('jewelryShopApp')
         return false;
       }
 
-      User.update($rootScope.userId, updateData).then(function (response) {
+      var dataToUpdate = {
+        name: updateData.name,
+        surname: updateData.surname,
+        email: updateData.email,
+        address: updateData.address,
+        bankAccount: updateData.bankAccount
+      };
+
+      if (updateData.password !== '') {
+        dataToUpdate.password = updateData.password;
+      }
+
+      User.update($rootScope.userId, dataToUpdate).then(function (response) {
         angular.extend($rootScope.user, response);
         $rootScope.$broadcast('alert', 'success', 'Your data has been updated successfully.');
       });
     };
 
-    $scope.buy = function(productId){
-      Cart.update($rootScope.userId, productId).then(function(response){
+    $scope.buy = function (productId) {
+      Cart.update($rootScope.userId, productId).then(function (response) {
         $rootScope.$broadcast('alert', 'success', 'The product has been added in the cart correctly');
         $rootScope.user.cart = response;
       });
