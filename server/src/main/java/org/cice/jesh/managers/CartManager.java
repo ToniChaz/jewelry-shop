@@ -67,7 +67,10 @@ public class CartManager {
             if (product.getQuantity() == 0) {
                 result.put("statusCode", 410);
                 result.put("response", "Product out of stock.");
-            } else if (cart == null) {
+            } else if(cart.getProductsList().contains(product)){
+                result.put("statusCode", 410);
+                result.put("response", "This product already exists in your cart.");
+            }else if (cart == null) {
                 CartDto newCart = new CartDto();
                 List<ProductDto> productsList = new ArrayList<>();
                 productsList.add(product);
