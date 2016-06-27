@@ -1,6 +1,7 @@
 package org.cice.jesh.persistence.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,24 +31,28 @@ public class AdministratorDto implements Serializable{
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "last_connection")
+    private Date lastConnection;
 
 
     public AdministratorDto() {
     }
 
-    public AdministratorDto(Integer id, String name, String surname, String email, String password) {
+    public AdministratorDto(Integer id, String name, String surname, String email, String password, Date lastConnection) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.lastConnection = lastConnection;
     }
 
-    public AdministratorDto(String name, String surname, String email, String password) {
+    public AdministratorDto(String name, String surname, String email, String password, Date lastConnection) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.lastConnection = lastConnection;
     }
 
     public Integer getId() {
@@ -90,9 +95,24 @@ public class AdministratorDto implements Serializable{
         this.password = password;
     }
 
+    public Date getLastConnection() {
+        return lastConnection;
+    }
+
+    public void setLastConnection() {
+        this.lastConnection = new Date();
+    }
+
     @Override
     public String toString() {
-        return "AdministratorDto{" + "id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", password=" + password + '}';
+        return "AdministratorDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", lastConnection=" + lastConnection +
+                '}';
     }
 
     @Override
@@ -106,7 +126,8 @@ public class AdministratorDto implements Serializable{
         if (!getName().equals(that.getName())) return false;
         if (!getSurname().equals(that.getSurname())) return false;
         if (!getEmail().equals(that.getEmail())) return false;
-        return getPassword().equals(that.getPassword());
+        if (!getPassword().equals(that.getPassword())) return false;
+        return getLastConnection().equals(that.getLastConnection());
 
     }
 
@@ -117,6 +138,7 @@ public class AdministratorDto implements Serializable{
         result = 31 * result + getSurname().hashCode();
         result = 31 * result + getEmail().hashCode();
         result = 31 * result + getPassword().hashCode();
+        result = 31 * result + getLastConnection().hashCode();
         return result;
     }
 }

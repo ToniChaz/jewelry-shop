@@ -26,4 +26,9 @@ public class OrderDaoImpl extends AbstractFactory<OrderDto> implements OrderDao 
         return super.create(order);
     }
 
+    @Override
+    public List<Object[]> findTop(String table, String column, int limit) {
+        return super.findTop(table, column, limit);
+    }
+
 }

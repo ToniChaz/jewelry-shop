@@ -34,14 +34,14 @@ angular.module('jewelryShopApp')
           $rootScope.setSession(response);
         }
 
-        if ($rootScope.isAdministrator){
-            Administrator.get($rootScope.userId).then(function(response){
-                $rootScope.setUserData(response);
-              });
+        if ($rootScope.isAdministrator) {
+          Administrator.get($rootScope.userId).then(function (response) {
+            $rootScope.setUserData(response);
+          });
         } else {
-            User.get($rootScope.userId).then(function(response){
-                $rootScope.setUserData(response);
-              });
+          User.get($rootScope.userId).then(function (response) {
+            $rootScope.setUserData(response);
+          });
         }
 
 

@@ -18,6 +18,12 @@ angular.module('jewelryShopApp')
       }
     }
 
+    $scope.convertToDate = function (stringDate){
+      var dateOut = new Date(stringDate);
+      dateOut.setDate(dateOut.getDate() + 1);
+      return dateOut;
+    };
+
     $scope.update = function (updateData) {
       if (!updateData || !updateData.name || !updateData.surname || !updateData.email || !updateData.address || !updateData.bankAccount) {
         $rootScope.$broadcast('alert', 'danger', 'All data is required to register as client or your e-mail is invalid.');

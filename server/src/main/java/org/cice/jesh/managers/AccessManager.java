@@ -46,10 +46,14 @@ public class AccessManager {
                 final boolean isLogged = true;
                 final boolean isAdministrator = true;
 
+                currentAdministrator.setLastConnection();
+                administratorDaoImpl.update(currentAdministrator);
+
                 response.put("isLogged", isLogged);
                 response.put("isAdministrator", isAdministrator);
                 response.put("userId", currentAdministrator.getId());
                 response.put("accessToken", generateAccessToken(currentAdministrator.getId()));
+
                 
                 result.put("statusCode", 200);
                 result.put("response", response);                

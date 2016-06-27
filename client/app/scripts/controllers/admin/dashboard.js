@@ -8,7 +8,7 @@
  * Controller of the jewelryShopApp
  */
 angular.module('jewelryShopApp')
-  .controller('AdminDashboardCtrl', function ($scope, $rootScope, $location) {
+  .controller('AdminDashboardCtrl', function ($scope, $rootScope, $location, Dashboard) {
     /*-------------------------------------
      | Variables                          |
      -------------------------------------*/
@@ -25,14 +25,24 @@ angular.module('jewelryShopApp')
       [28, 48, 40, 19, 86, 27, 90]
     ];
 
+    $scope.administratorsConnections = {};
+
     /*-------------------------------------
      | Functions                          |
      -------------------------------------*/
     function isLoggedAndAdministrator(){
       if(!$rootScope.isLogged && !$rootScope.isAdministrator){
         $location.path('/login');
+      } else {
+        Dashboard.get().then(function(response){
+          $scope.administratorsConnections = response.administratorsConnections;
+          $scope.topUsers = response.topUsers;
+          $scope.topProducts = response.topProducts;
+        });
       }
     }
+
+
 
 
     /*-------------------------------------

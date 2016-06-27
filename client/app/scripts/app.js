@@ -77,7 +77,7 @@ angular
         }
       });
   })
-  .run(function ($rootScope, $sessionStorage, User, Cart) {
+  .run(function ($rootScope, $sessionStorage, User, Cart, Administrator) {
 
     // Global variables
     $rootScope.hideHeaderFooter = false;
@@ -146,13 +146,18 @@ angular
     }
 
     if ($rootScope.isLogged && $rootScope.user === undefined) {
-      debugger
-      User.get($rootScope.userId).then(function (response) {
-        setUserData(response);
-        Cart.get($rootScope.userId).then(function (response) {
-          $rootScope.user.cart = response;
+      if ($rootScope.isAdministrator) {
+        Administrator.get($rootScope.userId).then(function (response) {
+          $rootScope.setUserData(response);
         });
-      });
+      } else {
+        User.get($rootScope.userId).then(function (response) {
+          setUserData(response);
+          Cart.get($rootScope.userId).then(function (response) {
+            $rootScope.user.cart = response;
+          });
+        });
+      }
     }
 
   });

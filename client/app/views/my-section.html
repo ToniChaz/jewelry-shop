@@ -41,31 +41,45 @@
           <div class="order">
             <div class="col-md-6">
               <h1>Order: {{order.orderId}}</h1>
-              <h4>{{order.date}}</h4>
+              <h4 ng-bind="convertToDate(order.date) | date:'dd-MMM-yyyy'"></h4>
             </div>
             <div class="col-md-6 text-right">
               <h2>Total: {{order.total}}€</h2>
               <button class="btn btn-sm btn-success"
                       ng-class="{'btn-success': !orderDetail, 'btn-danger': orderDetail}" ng-click="orderDetail = !orderDetail"
-                      >{{orderDetail && 'Close' || 'Details'}}</button>
+              >{{orderDetail && 'Close' || 'Details'}}
+              </button>
             </div>
             <div class="clearfix"></div>
           </div>
           <div class="order-detail" ng-show="orderDetail">
-            <div class="order-detail-product" ng-repeat="product in order.orderProducts">
-              <div class="col-md-3">
-                <h6>{{product.name}}</h6>
+            <div class="order-detail-product">
+              <div class="row">
+                <div class="col-md-3">
+                  <b>Product:</b>
+                </div>
+                <div class="col-md-3">
+                  <b>Price:</b>
+                </div>
+                <div class="col-md-3">
+                  <b>Stock:</b>
+                </div>
               </div>
-              <div class="col-md-3">
-                <h6>{{product.price}}€</h6>
+              <div class="row" ng-repeat="product in order.orderProducts">
+                <div class="col-md-3">
+                  <h6>{{product.name}}</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6>{{product.price}}€</h6>
+                </div>
+                <div class="col-md-3">
+                  <h6>{{product.quantity}}</h6>
+                </div>
+                <div class="col-md-3">
+                  <button type="button" ng-click="buy(product.id)" class="btn btn-sm btn-success btn-block">Buy</button>
+                </div>
+                <div class="clearfix"></div>
               </div>
-              <div class="col-md-3">
-                <h6>{{product.quantity}}</h6>
-              </div>
-              <div class="col-md-3">
-                <button type="button" ng-click="buy(product.id)" class="btn btn-sm btn-success btn-block">Buy</button>
-              </div>
-              <div class="clearfix"></div>
             </div>
           </div>
         </div>

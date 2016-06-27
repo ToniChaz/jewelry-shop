@@ -30,45 +30,25 @@
     <div class="col-md-4">
       <h2>Top Users</h2>
       <ul class="list-group">
-        <li class="list-group-item">
-          <span class="badge">90</span>
-          Erika Johnson
-        </li>
-        <li class="list-group-item">
-          <span class="badge">40</span>
-          John Demo
-        </li>
-        <li class="list-group-item">
-          <span class="badge">14</span>
-          Mikky Nadal
+        <li class="list-group-item" ng-repeat="topUser in topUsers">
+          {{topUser.name}} {{topUser.surname }}
         </li>
       </ul>
     </div>
     <div class="col-md-4">
       <h2>Administrators Connexion</h2>
       <ul class="list-group">
-        <li class="list-group-item">
-          John Travolta - 12/05/2016 22:32
-        </li>
-        <li class="list-group-item">
-          Jimmy Smith - 18/04/2016 08:49
-        </li>
-        <li class="list-group-item">
-          Tommy Piterson - 28/06/2016 14:05
+        <li class="list-group-item" ng-repeat="administrator in administratorsConnections">
+          {{administrator.name}} {{administrator.surname }} - {{administrator.lastConnection}}
         </li>
       </ul>
     </div>
     <div class="col-md-4">
       <h2>Top Products</h2>
-      <li class="list-group-item">
-        Gold Ring
-      </li>
-      <li class="list-group-item">
-        Platinum Ring
-      </li>
-      <li class="list-group-item">
-        The Ring of Clara
+      <li class="list-group-item" ng-repeat="topProduct in topProducts">
+        {{topProduct.name}}
       </li>
     </div>
   </div>
+  <br><br>
 </div>

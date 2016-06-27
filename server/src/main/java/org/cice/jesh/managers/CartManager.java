@@ -64,10 +64,14 @@ public class CartManager {
             CartDto cart = getCartByUserId(userId);
             ProductDto product = productManager.getProductById(parsedProductId);
 
-            if (cart == null) {
+            if (product.getQuantity() == 0) {
+                result.put("statusCode", 410);
+                result.put("response", "Product out of stock.");
+            } else if (cart == null) {
                 CartDto newCart = new CartDto();
                 List<ProductDto> productsList = new ArrayList<>();
                 productsList.add(product);
+                product.setQuantity(product.getQuantity() - 1);
 
                 newCart.setUserId(userId);
                 newCart.setProductsList(productsList);
@@ -79,6 +83,7 @@ public class CartManager {
 
                 cart.addProduct(product);
                 cart.setTotal();
+                product.setQuantity(product.getQuantity() - 1);
 
                 result.put("statusCode", 200);
                 result.put("response", cartDaoImpl.update(cart));
@@ -108,6 +113,7 @@ public class CartManager {
             if (cart.removeProduct(product)) {
 
                 cart.setTotal();
+                product.setQuantity(product.getQuantity() + 1);
 
                 result.put("statusCode", 200);
                 result.put("response", cartDaoImpl.update(cart));
@@ -136,7 +142,7 @@ public class CartManager {
             Integer userId = ParserUtil.stringToInteger(id);
             CartDto cart = getCartByUserId(userId);
 
-            if (cart == null ) {
+            if (cart == null) {
                 result.put("statusCode", 404);
                 result.put("response", "Cart not exist");
             } else {

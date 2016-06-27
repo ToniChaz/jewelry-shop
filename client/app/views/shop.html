@@ -34,7 +34,7 @@
         <h4>Category: {{product.category}}</h4>
       </div>
       <div class="col-md-3">
-        <button ng-if="isLogged && !isAdministrator" type="button" ng-click="buy(product.id)" class="btn btn-lg btn-success btn-block">Buy</button>
+        <button ng-if="isLogged && !isAdministrator" ng-disabled="product.quantity === 0" type="button" ng-click="buy(product.id)" class="btn btn-lg btn-success btn-block">{{product.quantity === 0 && 'Out Of Stock' || 'Buy'}}</button>
         <p class="text-center" ng-if="!isLogged">To buy you need to be <a href="#/register">registered</a> or <a href="#/login">logged</a></p>
         <p class="text-center" ng-if="isLogged && isAdministrator">The administrators can't buy</p>
       </div>
@@ -55,8 +55,9 @@
       </div>
       <div class="col-md-3">
         <button type="button" ng-click="back()" class="btn btn-lg btn-primary btn-block">Back</button>
-        <button ng-if="isLogged" type="button" class="btn btn-lg btn-success btn-block">Buy</button>
+        <button ng-if="isLogged && !isAdministrator" ng-disabled="singleProduct.quantity === 0" type="button" ng-click="buy(singleProduct.id)" class="btn btn-lg btn-success btn-block">{{singleProduct.quantity === 0 && 'Out Of Stock' || 'Buy'}}</button>
         <p class="text-center" ng-if="!isLogged">To buy you need to be <a href="#/register">registered</a> or <a href="#/login">logged</a></p>
+        <p class="text-center" ng-if="isLogged && isAdministrator">The administrators can't buy</p>
       </div>
       <hr>
     </div>

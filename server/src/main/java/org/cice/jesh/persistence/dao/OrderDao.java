@@ -11,4 +11,6 @@ public interface OrderDao {
     List<OrderDto> findAll(String columnToSearch, int valueToSearch);
 
     OrderDto create(OrderDto order);
+
+    List<Object[]> findTop(String table, String column, int limit);
 }
