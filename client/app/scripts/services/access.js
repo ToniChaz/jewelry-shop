@@ -41,6 +41,9 @@ angular.module('jewelryShopApp')
         } else {
           User.get($rootScope.userId).then(function (response) {
             $rootScope.setUserData(response);
+            Cart.get($rootScope.userId).then(function (response) {
+              $rootScope.user.cart = response;
+            });
           });
         }
 
